@@ -1,4 +1,4 @@
-package com.prog02.burger;
+package com.prog02.pizza_burger.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

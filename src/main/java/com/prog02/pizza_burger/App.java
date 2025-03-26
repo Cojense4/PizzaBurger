@@ -1,4 +1,4 @@
-package com.prog02.burger;
+package com.prog02.pizza_burger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
