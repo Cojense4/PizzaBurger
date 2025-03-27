@@ -1,4 +1,4 @@
-package com.prog02.pizza_burger.pizza.toppings;
+package com.prog02.pizza_burger.pizza;
 import com.prog02.pizza_burger.common.MenuItem;
 
 public enum PizzaToppings implements MenuItem {
@@ -41,6 +41,6 @@ public enum PizzaToppings implements MenuItem {
 
     @Override
     public String toNiceString() {
-        return this.itemName + " -- Price: $ " + this.price;
+        return getName() + " -- $ " + String.format("%.2f", price);
     }
 }
