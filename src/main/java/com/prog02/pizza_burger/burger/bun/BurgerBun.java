@@ -3,7 +3,7 @@ import com.prog02.pizza_burger.common.Priceable;
 
 
 abstract public class BurgerBun extends Priceable {
-    protected String itemType;
+    protected String itemName;
     protected double price;
     protected boolean isToasted;
 
@@ -11,15 +11,15 @@ abstract public class BurgerBun extends Priceable {
     @Override
     abstract public String toString();
 
-    public BurgerBun(String itemType, double price, boolean isToasted) {
-        super(price);
-        this.itemType = itemType;
+    public BurgerBun(String itemName, double price, boolean isToasted) {
+        super(price, itemName);
+        this.itemName = itemName;
         this.price = price;
         this.isToasted = isToasted;
     }
 
-    public BurgerBun(String itemType, boolean isToasted) {
-        this(itemType, 3.00, isToasted);
+    public BurgerBun(String itemName, boolean isToasted) {
+        this(itemName, 3.00, isToasted);
     }
 
     protected String getStrPrice() {

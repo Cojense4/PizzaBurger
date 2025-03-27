@@ -2,7 +2,7 @@ package com.prog02.pizza_burger.burger.patty;
 import com.prog02.pizza_burger.common.Priceable;
 
 abstract public class BurgerPatty extends Priceable {
-    protected String itemType;
+    protected String itemName;
     protected double price;
     // cookLevel is the rare to well-done variable where it ranges from 1=rare=125 degrees to 5=well done=165 degrees
     protected int cookLevel;
@@ -13,14 +13,14 @@ abstract public class BurgerPatty extends Priceable {
     @Override
     abstract public String toString();
 
-    public BurgerPatty(String itemType, double price, int cookLevel, int seasonLevel) {
-        super(price);
+    public BurgerPatty(String itemName, double price, int cookLevel, int seasonLevel) {
+        super(price, itemName);
         this.seasonLevel = seasonLevel;
         this.price = price;
-        this.itemType = itemType;
+        this.itemName = itemName;
         this.cookLevel = cookLevel;
     }
-    public BurgerPatty(String itemType) { this(itemType, 0.50, 2, 0); }
+    public BurgerPatty(String itemName) { this(itemName, 0.50, 2, 0); }
 
     public double calcPrice() {
         if (this.seasonLevel > 3) {

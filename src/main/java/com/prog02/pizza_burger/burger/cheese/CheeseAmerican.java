@@ -4,19 +4,19 @@ public class CheeseAmerican extends BurgerCheese {
     private final boolean isWhite;
 
     public CheeseAmerican(boolean isWhite, boolean isSmoked, boolean isAged) {
-        super("American", 0.50, isSmoked, isAged);
+        super("American Cheese", 0.50, isSmoked, isAged);
         this.isWhite = isWhite;
     }
 
     public CheeseAmerican(boolean isWhite) {
-        super("American", 0.50, false, false);
+        super("American Cheese", 0.50, false, false);
         this.isWhite = isWhite;
     }
 
     @Override
     public String toString() {
-        // Make sure that 'itemType' is properly defined in BurgerBun
-        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + (isWhite ? "White ": "") + this.itemType + " Cheese Slice";
+        // Make sure that 'itemName' is properly defined in BurgerBun
+        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + (isWhite ? "White ": "") + this.itemName + " Slice";
     }
 
 //   public String getParentNiceString() {
