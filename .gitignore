@@ -42,4 +42,6 @@ build/
 .mvn/
 mvnw
 mvnw.cmd
-src/main/java/com/prog02/pizza_burger/pizza/PizzaBuilder.java
+src/main/java/com/prog02/pizza_burger/model/pizza/PizzaBuilder.java
+src/main/java/com/prog02/pizza_burger/model/burger/CheeseTester.java
+src/main/java/com/prog02/pizza_burger/model/burger/PattiesTest.java

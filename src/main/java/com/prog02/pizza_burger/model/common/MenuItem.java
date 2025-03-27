@@ -1,4 +1,4 @@
-package com.prog02.pizza_burger.common;
+package com.prog02.pizza_burger.model.common;
 
 public interface MenuItem {
     double getPrice();
