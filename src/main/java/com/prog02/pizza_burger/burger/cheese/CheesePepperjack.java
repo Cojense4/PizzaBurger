@@ -6,8 +6,8 @@ public class CheesePepperjack extends BurgerCheese{
 
     @Override
     public String toString() {
-        // Make sure that 'itemType' is properly defined in BurgerBun
-        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemType + " Cheese Slice";
+        // Make sure that 'itemName' is properly defined in BurgerBun
+        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName + " Cheese Slice";
     }
 
 //    public String getParentNiceString() {

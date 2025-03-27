@@ -8,7 +8,7 @@ public class PattyBeef extends BurgerPatty {
 
     @Override
     public String toString(){
-        return super.seasoningLevel() + " " + this.itemType + " patty";
+        return super.seasoningLevel() + " " + this.itemName + " patty";
     }
 
 //    public String getParentNiceString() {

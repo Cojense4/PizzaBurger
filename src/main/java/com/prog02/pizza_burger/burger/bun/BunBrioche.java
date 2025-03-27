@@ -8,8 +8,8 @@ public class BunBrioche extends BurgerBun {
 
     @Override
     public String toString() {
-        // Make sure that 'isToasted' and 'itemType' are properly defined in BurgerBun
-        return (isToasted ? "Toasted " : "Untoasted ") + this.itemType + " Bun";
+        // Make sure that 'isToasted' and 'itemName' are properly defined in BurgerBun
+        return (isToasted ? "Toasted " : "Untoasted ") + this.itemName + " Bun";
     }
 
 //    public String getParentNiceString() {

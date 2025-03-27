@@ -1,13 +1,13 @@
 package com.prog02.pizza_burger.burger.cheese;
 
 public class CheeseGouda extends BurgerCheese{
-    public CheeseGouda(boolean isSmoked, boolean isAged) { super("Gouda", 0.75, isSmoked, isAged); }
-    public CheeseGouda() { super("Gouda", 0.75, false, false); }
+    public CheeseGouda(boolean isSmoked, boolean isAged) { super("Gouda Cheese", 0.75, isSmoked, isAged); }
+    public CheeseGouda() { super("Gouda Cheese", 0.75, false, false); }
 
     @Override
     public String toString() {
-        // Make sure that 'itemType' is properly defined in BurgerBun
-        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemType + " Cheese Slice";
+        // Make sure that 'itemName' is properly defined in BurgerBun
+        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName + " Slice";
     }
 
 //    public String getParentNiceString() {

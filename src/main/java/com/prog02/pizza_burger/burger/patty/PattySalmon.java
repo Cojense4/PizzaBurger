@@ -1,8 +1,8 @@
 package com.prog02.pizza_burger.burger.patty;
 
-public class PattyWagyu extends BurgerPatty {
-    public PattyWagyu(int cookLevel, int seasonLevel) {
-        super("Wagyu", 10, cookLevel, seasonLevel);
+public class PattySalmon extends BurgerPatty {
+    public PattySalmon(int cookLevel, int seasonLevel) {
+        super("Salmon", 7.75, cookLevel, seasonLevel);
         this.price = super.calcPrice();
     }
 
@@ -17,10 +17,10 @@ public class PattyWagyu extends BurgerPatty {
 //
 //    // Temporary main method for testing
 //    public static void main(String[] args) {
-//        PattyWagyu patty1 = new PattyWagyu(1, 1);
-//        PattyWagyu patty2 = new PattyWagyu(2, 2);
-//        PattyWagyu patty3 = new PattyWagyu(3, 3);
-//        PattyWagyu patty4 = new PattyWagyu(4, 0);
+//        PattySalmon patty1 = new PattySalmon(1, 1);
+//        PattySalmon patty2 = new PattySalmon(2, 2);
+//        PattySalmon patty3 = new PattySalmon(3, 3);
+//        PattySalmon patty4 = new PattySalmon(4, 0);
 //        System.out.println(patty1.getParentNiceString());
 //        System.out.println(patty2.getParentNiceString());
 //        System.out.println(patty3.getParentNiceString());
