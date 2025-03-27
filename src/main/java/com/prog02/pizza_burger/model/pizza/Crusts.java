@@ -1,7 +1,7 @@
-package com.prog02.pizza_burger.pizza;
-import com.prog02.pizza_burger.common.MenuItem;
+package com.prog02.pizza_burger.model.pizza;
+import com.prog02.pizza_burger.model.common.MenuItem;
 
-public enum PizzaCrusts implements MenuItem {
+public enum Crusts implements MenuItem {
     // Normal Crusts
     TRADITIONAL("Traditional Crust", 5.00, false),
     THIN("Thin Crust", 4.50, false),
@@ -14,7 +14,7 @@ public enum PizzaCrusts implements MenuItem {
     private final double price;
     private final boolean promptForDeepDish;
 
-    PizzaCrusts(String itemName, double price, boolean promptForDeepDish) {
+    Crusts(String itemName, double price, boolean promptForDeepDish) {
         this.itemName = itemName;
         this.price = price;
         this.promptForDeepDish = promptForDeepDish;

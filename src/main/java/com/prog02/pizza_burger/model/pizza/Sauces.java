@@ -1,7 +1,7 @@
-package com.prog02.pizza_burger.pizza;
-import com.prog02.pizza_burger.common.MenuItem;
+package com.prog02.pizza_burger.model.pizza;
+import com.prog02.pizza_burger.model.common.MenuItem;
 
-public enum PizzaSauces implements MenuItem {
+public enum Sauces implements MenuItem {
     // Sauces
     ALFREDO("Alfredo Sauce", 3.75),
     TRADITIONAL("Traditional Sauce", 4.50),
@@ -13,7 +13,7 @@ public enum PizzaSauces implements MenuItem {
     private final double price;
 
     // Enum constructor is private by default.
-    PizzaSauces(String itemName, double price) {
+    Sauces(String itemName, double price) {
         this.itemName = itemName;
         this.price = price;
     }

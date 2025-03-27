@@ -1,15 +1,14 @@
-package com.prog02.pizza_burger.pizza;
+package com.prog02.pizza_burger.model.pizza;
 
-import com.prog02.pizza_burger.common.MenuItem;
 import java.util.ArrayList;
 
 public class Pizza {
-    private PizzaCrusts crust;
-    private PizzaSauces sauce;
-    private ArrayList<PizzaToppings> toppings;
+    private Crusts crust;
+    private Sauces sauce;
+    private ArrayList<Toppings> toppings;
 
     // Constructor taking the enums.
-    public Pizza(PizzaCrusts crust, PizzaSauces sauce, ArrayList<PizzaToppings> toppings) {
+    public Pizza(Crusts crust, Sauces sauce, ArrayList<Toppings> toppings) {
         this.crust = crust;
         this.sauce = sauce;
         this.toppings = toppings;
@@ -35,7 +34,7 @@ public class Pizza {
         // Display Toppings, if any
         if (toppings != null && !toppings.isEmpty()) {
             System.out.println("Toppings:");
-            for (PizzaToppings topping : toppings) {
+            for (Toppings topping : toppings) {
                 System.out.println(topping.toNiceString());
                 totalPrice += topping.getPrice();
             }
@@ -46,27 +45,27 @@ public class Pizza {
     }
 
     // Getters and setters if needed
-    public PizzaCrusts getCrust() {
+    public Crusts getCrust() {
         return crust;
     }
 
-    public void setCrust(PizzaCrusts crust) {
+    public void setCrust(Crusts crust) {
         this.crust = crust;
     }
 
-    public PizzaSauces getSauce() {
+    public Sauces getSauce() {
         return sauce;
     }
 
-    public void setSauce(PizzaSauces sauce) {
+    public void setSauce(Sauces sauce) {
         this.sauce = sauce;
     }
 
-    public ArrayList<PizzaToppings> getToppings() {
+    public ArrayList<Toppings> getToppings() {
         return toppings;
     }
 
-    public void setToppings(ArrayList<PizzaToppings> toppings) {
+    public void setToppings(ArrayList<Toppings> toppings) {
         this.toppings = toppings;
     }
 }
