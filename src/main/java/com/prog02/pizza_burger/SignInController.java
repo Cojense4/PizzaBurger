@@ -34,7 +34,7 @@ public class SignInController {
         }
 
         UserStorage.setCurrentUser(authenticatedUser);
-        App.setRoot("LogOn");
+
     }
 
     @FXML

@@ -1,8 +1,9 @@
 module com.prog02.pizza_burger {
     requires javafx.controls;
     requires javafx.fxml;
-    requires transitive javafx.graphics;
+    requires com.jfoenix;
 
-    exports com.prog02.pizza_burger;
+
     opens com.prog02.pizza_burger to javafx.fxml;
+    exports com.prog02.pizza_burger;
 }
