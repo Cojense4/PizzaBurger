@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="700.0" minWidth="400.0" scaleShape="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog02.pizza_burger.BurgerBuilderController">
+   <Pane fx:id="bunPane" minHeight="100.0" minWidth="380.0" prefHeight="110.0" prefWidth="380.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+      <JFXCheckBox fx:id="toastedCheck" layoutX="210.0" layoutY="50.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" text="Toasted" />
+      <Label fx:id="bunLabel" alignment="CENTER" layoutX="15.0" layoutY="15.0" minHeight="25.0" minWidth="30.0" text="Bun" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Separator fx:id="bunSeperator" layoutY="30.0" minHeight="10.0" minWidth="390.0">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </Separator>
+      <JFXComboBox fx:id="bunCombo" layoutX="30.0" layoutY="50.0" minHeight="30.0" minWidth="150.0" promptText="Select Bun" />
+      <padding>
+         <Insets bottom="30.0" />
+      </padding>
+   </Pane>
+   <Pane fx:id="pattyPane" layoutX="10.0" layoutY="135.0" minHeight="150.0" minWidth="380.0" prefHeight="175.0" prefWidth="380.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0">
+      <JFXComboBox fx:id="pattyTypeCombo" layoutX="30.0" layoutY="50.0" minHeight="30.0" minWidth="150.0" promptText="Select Patty" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="203.0" />
+      <JFXComboBox fx:id="pattySeasonCombo" layoutX="210.0" layoutY="50.0" minHeight="30.0" minWidth="150.0" promptText="Patty Seasoning" />
+      <JFXSlider fx:id="cookSlider" blockIncrement="1.0" indicatorPosition="RIGHT" layoutX="30.0" layoutY="110.0" majorTickUnit="1.0" max="4.0" maxHeight="30.0" minHeight="20.0" minWidth="150.0" minorTickCount="0" showTickMarks="true" snapToTicks="true" value="1.0" />
+      <Label fx:id="rareLabel" alignment="CENTER" layoutX="27.0" layoutY="130.0" minHeight="15.0" minWidth="30.0" prefHeight="15.0" prefWidth="30.0" text="Rare" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font></Label>
+      <Label fx:id="wellDoneLabel" alignment="CENTER" layoutX="141.0" layoutY="130.0" minHeight="15.0" minWidth="54.0" text="Well Done" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font></Label>
+      <JFXComboBox fx:id="pattyAmtCombo" layoutX="210.0" layoutY="110.0" minHeight="30.0" minWidth="150.0" promptText="Patty Count" />
+      <Label fx:id="burgrerLabel" alignment="CENTER" layoutX="15.0" layoutY="15.0" minHeight="25.0" minWidth="30.0" text="Burger Patties" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Separator fx:id="burgerSeperator" layoutY="30.0" minHeight="10.0" minWidth="390.0">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </Separator>
+      <padding>
+         <Insets bottom="30.0" />
+      </padding>
+   </Pane>
+   <Separator layoutX="5.0" layoutY="120.0" minHeight="15.0" minWidth="390.0" prefHeight="15.0" prefWidth="390.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
+      <padding>
+         <Insets bottom="5.0" top="5.0" />
+      </padding></Separator>
+   <JFXButton fx:id="addCreateNewBtn" buttonType="RAISED" layoutX="230.0" layoutY="639.0" minHeight="100.0" minWidth="200.0" onAction="#handleGoToCart" prefHeight="31.0" prefWidth="150.0" ripplerFill="BLACK" text="Add/Create New" />
+   <Pane fx:id="cheesePane" layoutY="330.0" minHeight="100.0" minWidth="380.0" prefHeight="150.0" prefWidth="380.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0">
+      <children>
+         <JFXComboBox fx:id="chzTypeCombo" layoutX="30.0" layoutY="50.0" minHeight="30.0" minWidth="150.0" promptText="Select Cheese" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="200.0" />
+         <JFXComboBox fx:id="chzAmtCombo" layoutX="210.0" layoutY="50.0" minHeight="30.0" minWidth="150.0" />
+         <JFXCheckBox fx:id="smokedCheck" layoutX="30.0" layoutY="100.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" text="Smoked" />
+         <JFXCheckBox fx:id="agedCheck" layoutX="160.0" layoutY="100.0" minHeight="20.0" minWidth="100.0" mnemonicParsing="false" text="Aged" />
+         <Label fx:id="chzLabel" alignment="CENTER" layoutX="15.0" layoutY="15.0" minHeight="25.0" minWidth="30.0" prefHeight="25.0" prefWidth="120.0" text="Cheese Slices" textAlignment="CENTER">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Separator fx:id="chzSeperator" layoutY="34.0" minHeight="10.0" minWidth="390.0">
+            <padding>
+               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            </padding>
+         </Separator>
+      </children>
+      <padding>
+         <Insets bottom="30.0" />
+      </padding>
+   </Pane>
+   <Pane fx:id="garnishPane" layoutY="490.0" minHeight="100.0" minWidth="380.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+      <children>
+         <JFXCheckBox fx:id="tomatoChk" layoutX="30.0" layoutY="75.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Tomato" />
+         <JFXCheckBox fx:id="lettuceChk" layoutX="30.0" layoutY="45.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Lettuce" />
+         <Label fx:id="garnishLabel" alignment="CENTER" layoutX="15.0" layoutY="15.0" minHeight="25.0" minWidth="30.0" text="Garnishes" textAlignment="CENTER">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <JFXCheckBox fx:id="avacadoChk" layoutX="130.0" layoutY="45.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Avacado" />
+         <JFXCheckBox fx:id="pickleChk" layoutX="130.0" layoutY="75.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Pickles" />
+         <JFXCheckBox fx:id="onionChk" layoutX="230.0" layoutY="45.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Onion" />
+         <JFXCheckBox fx:id="mushroomChk" layoutX="230.0" layoutY="75.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Mushrooms" />
+         <JFXCheckBox fx:id="baconChk" layoutX="30.0" layoutY="105.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Bacon" />
+         <Separator fx:id="garnishSeperator" layoutY="30.0" minHeight="15.0" minWidth="390.0">
+            <padding>
+               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            </padding>
+         </Separator>
+         <JFXCheckBox fx:id="cookOnionChk" layoutX="130.0" layoutY="105.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Cooked Onion" />
+      </children>
+   </Pane>
+   <Separator layoutY="475.0" prefHeight="15.0" prefWidth="390.0" style="-fx-border-width: 20px;" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0" />
+   <Separator layoutY="315.0" minHeight="15.0" minWidth="390.0" prefHeight="15.0" prefWidth="390.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
+      <padding>
+         <Insets bottom="5.0" top="5.0" />
+      </padding>
+   </Separator>
+   <JFXButton fx:id="addCheckOutBtn" buttonType="RAISED" layoutX="30.0" layoutY="445.0" minHeight="100.0" minWidth="200.0" prefHeight="31.0" prefWidth="150.0" ripplerFill="BLACK" text="Add/Check Out" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" />
+   <padding>
+      <Insets bottom="30.0" />
+   </padding>
+</AnchorPane>
