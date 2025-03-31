@@ -1,24 +1,38 @@
 package com.prog02.pizza_burger.model.burger;
 import com.prog02.pizza_burger.model.common.MenuItem;
 
-public enum Patties implements MenuItem {
-    // Cheeses
+public enum Patty implements MenuItem {
+    // Cheese
     BEEF("Beef Patty", 5.00, 2, 0),
     WAGYU("Wagyu Patty", 10.00, 2, 0),
     CHICKEN("Chicken Patty", 3.50, 2, 0),
     SALMON("Salmon Patty", 7.75, 2, 0);
 
     private final String itemName;
-    private final double price;
-    private final int cookLevel;
+    private double price;
+    private int cookLevel;
     private int seasonLevel;
 
-    // New constructor with five parameters
-    Patties(String itemName, double price, int cookLevel, int seasonLevel) {
+    // New constructor with four parameters
+    Patty(String itemName, double price, int cookLevel, int seasonLevel) {
         this.itemName = itemName;
         this.price = price;
         this.cookLevel = cookLevel;
         this.seasonLevel = seasonLevel;
+    }
+
+    public static Patty fromItemName(String itemName) {
+        for (Patty patty : Patty.values()) {
+            if (patty.itemName.equals(itemName)) {
+                return patty;
+            }
+        }
+        return BEEF;
+    }
+
+    public void customizePatty(int newCookLevel, int newSeasonLevel) {
+        this.cookLevel = newCookLevel;
+        this.seasonLevel = newSeasonLevel;
     }
 
     public String getSeasoningLevel() {
@@ -27,7 +41,7 @@ public enum Patties implements MenuItem {
                 yield "Light seasonings";
             }
             case 2: {
-                yield "Well seasoned";
+                yield "Normal seasonings";
             }
             case 3: {
                 yield "Extra seasoning";
@@ -49,20 +63,15 @@ public enum Patties implements MenuItem {
     }
 
     @Override
-    public double getPrice() {
-        if (this.seasonLevel > 3) {
-            this.seasonLevel = 3;
-        }
-        return this.price + (this.seasonLevel * 0.25);
-    }
-
-    @Override
     public String getName() {
         return this.itemName;
     }
 
     @Override
-    public String toNiceString() {
-        return getSeasoningLevel() + " " + getName() + " -- $" + String.format("%.2f", price);
+    public double getPrice() {
+        if (this.seasonLevel > 3) {
+            this.seasonLevel = 3;
+        }
+        return this.price + (this.seasonLevel * 0.25);
     }
 }
