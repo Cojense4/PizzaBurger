@@ -8,7 +8,6 @@ public abstract class Priceable implements MenuItem, Comparable<MenuItem> {
         this.price = price;
         this.itemName = itemName;
     }
-
     @Override
     public double getPrice() { return this.price; }
 
@@ -16,7 +15,9 @@ public abstract class Priceable implements MenuItem, Comparable<MenuItem> {
     public String getName() { return this.itemName; }
 
     @Override
-    public String toNiceString() { return toString() + "\n" + "Price -- $ " + getPrice(); }
+    public void display() {
+        toString();
+    }
 
     @Override
     public int compareTo(MenuItem otherItem) {

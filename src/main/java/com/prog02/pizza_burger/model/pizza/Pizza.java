@@ -23,19 +23,19 @@ public class Pizza {
 
         // Display Crust
         System.out.println("Crust:");
-        System.out.println(crust.toNiceString());
+        crust.display();
         totalPrice += crust.getPrice();
 
         // Display Sauce
         System.out.println("Sauce:");
-        System.out.println(sauce.toNiceString());
+        sauce.display();
         totalPrice += sauce.getPrice();
 
         // Display Toppings, if any
         if (toppings != null && !toppings.isEmpty()) {
             System.out.println("Toppings:");
             for (Toppings topping : toppings) {
-                System.out.println(topping.toNiceString());
+                topping.display();
                 totalPrice += topping.getPrice();
             }
         }

@@ -27,9 +27,4 @@ public enum Sauces implements MenuItem {
     public double getPrice() {
         return this.price;
     }
-
-    @Override
-    public String toNiceString() {
-        return getName() + " -- $ " + String.format("%.2f", price);
-    }
 }

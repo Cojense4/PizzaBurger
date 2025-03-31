@@ -1,19 +1,21 @@
 package com.prog02.pizza_burger.model.burger;
 
+import com.prog02.pizza_burger.model.common.MenuItem;
+
 import java.util.ArrayList;
 
-public class Burger {
-    private Buns bun;
-    private ArrayList<Patties> patties;
-    private ArrayList<Cheeses> cheeses;
-    private ArrayList<Garnishes> garnishes;
+public class Burger implements MenuItem {
+    private Bun bun;
+    private ArrayList<Patty> patties;
+    private ArrayList<Cheese> cheeses;
+    private ArrayList<Garnish> garnish;
 
     // Constructor taking the enums.
-    public Burger(Buns bun, ArrayList<Patties> patties, ArrayList<Cheeses> cheeses, ArrayList<Garnishes> garnishes) {
+    public Burger(Bun bun, ArrayList<Patty> patties, ArrayList<Cheese> cheeses, ArrayList<Garnish> garnish) {
         this.bun = bun;
         this.patties = patties;
         this.cheeses = cheeses;
-        this.garnishes = garnishes;
+        this.garnish = garnish;
     }
 
     /**
@@ -24,33 +26,30 @@ public class Burger {
         System.out.println("----- Burger Receipt -----");
 
         // Display Crust
-        System.out.println("Bun:");
-        System.out.println(bun.toNiceString());
+        bun.display();
         totalPrice += bun.getPrice();
 
-        // Display Patties
+        // Display Patty
         if (patties != null && !patties.isEmpty()) {
-            System.out.println("Patties:");
-            for (Patties patty : patties) {
-                System.out.println(patty.toNiceString());
+            for (Patty patty : patties) {
+                patty.display();
                 totalPrice += patty.getPrice();
             }
         }
 
-        // Display Cheeses, if any
+        // Display Cheese, if any
         if (cheeses != null && !cheeses.isEmpty()) {
-            System.out.println("Cheeses:");
-            for (Cheeses cheese : cheeses) {
-                System.out.println(cheese.toNiceString());
+            for (Cheese cheese : cheeses) {
+                cheese.display();
                 totalPrice += cheese.getPrice();
             }
         }
 
-        // Display Garnishes, if any
-        if (garnishes != null && !garnishes.isEmpty()) {
+        // Display Garnish, if any
+        if (garnish != null && !garnish.isEmpty()) {
             System.out.println("Garnishes:");
-            for (Garnishes topping : garnishes) {
-                System.out.println(topping.toNiceString());
+            for (Garnish topping : garnish) {
+                topping.display();
                 totalPrice += topping.getPrice();
             }
         }
@@ -60,31 +59,42 @@ public class Burger {
     }
 
     // Getters and setters if needed
-    public Buns getBun() {
+    public Bun getBun() {
         return bun;
     }
-    public void setBun(Buns bun) {
+    public void setBun(Bun bun) {
         this.bun = bun;
     }
 
-    public ArrayList<Patties> getPatties() {
+    public ArrayList<Patty> getPatties() {
         return patties;
     }
-    public void setPatties(ArrayList<Patties> patties) {
+    public void setPatties(ArrayList<Patty> patties) {
         this.patties = patties;
     }
 
-    public ArrayList<Cheeses> getCheeses() {
+    public ArrayList<Cheese> getCheeses() {
         return cheeses;
     }
-    public void setCheeses(ArrayList<Cheeses> newCheese) {
+    public void setCheeses(ArrayList<Cheese> newCheese) {
         this.cheeses = newCheese;
     }
 
-    public ArrayList<Garnishes> getGarnishes() {
-        return garnishes;
+    public ArrayList<Garnish> getGarnishes() {
+        return garnish;
     }
-    public void setGarnishes(ArrayList<Garnishes> garnishes) {
-        this.garnishes = garnishes;
+    public void setGarnishes(ArrayList<Garnish> garnish) {
+        this.garnish = garnish;
     }
+
+    @Override
+    public double getPrice() {
+        return 0;
+    }
+
+    @Override
+    public String getName() {
+        return "";
+    }
+
 }

@@ -2,7 +2,7 @@ package com.prog02.pizza_burger.model.pizza;
 import com.prog02.pizza_burger.model.common.MenuItem;
 
 public enum Toppings implements MenuItem {
-    // Cheeses
+    // Cheese
     ASIAGO("Asiago", "Cheese", 3.75),
     GOUDA("Gouda", "Cheese", 4.50),
     GRUYERE("Gruyere", "Cheese", 3.50),
@@ -39,8 +39,5 @@ public enum Toppings implements MenuItem {
         return this.price;
     }
 
-    @Override
-    public String toNiceString() {
-        return getName() + " -- $ " + String.format("%.2f", price);
-    }
+
 }

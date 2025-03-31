@@ -2,7 +2,7 @@ package com.prog02.pizza_burger.model.burger;
 
 import com.prog02.pizza_burger.model.common.MenuItem;
 
-public enum Garnishes implements MenuItem {
+public enum Garnish implements MenuItem {
     // Veggies (above other toppings)
     TOMATO("Tomato Slice", 1.25, true),
     LETTUCE("Iceberg Lettuce", 0.00, true),
@@ -19,11 +19,21 @@ public enum Garnishes implements MenuItem {
     private final double price;
     private final boolean isVeggie;
 
-    Garnishes(String itemName, double price, boolean isVeggie) {
+    Garnish(String itemName, double price, boolean isVeggie) {
         this.itemName = itemName;
         this.price = price;
         this.isVeggie = isVeggie;
     }
+
+    public static Garnish fromItemName(String itemName) {
+        for (Garnish garnish : values()) {
+            if (garnish.itemName.equals(itemName)) {
+                return garnish;
+            }
+        }
+        return TOMATO;
+    }
+
 
     @Override
     public String getName() {
@@ -33,10 +43,5 @@ public enum Garnishes implements MenuItem {
     @Override
     public double getPrice() {
         return this.price;
-    }
-
-    @Override
-    public String toNiceString() {
-        return getName() + " -- $" + String.format("%.2f", price);
     }
 }
