@@ -20,15 +20,6 @@ public enum Bun implements MenuItem {
         this.isToasted = isToasted;
     }
 
-    public static Bun fromItemName(String name) {
-        for (Bun bun : Bun.values()) {
-            if (bun.getName().equals(name)) {
-                return bun;
-            }
-        }
-        return SESAME;
-    }
-
     public void setIsToasted(boolean isToasted) {
         this.isToasted = isToasted;
     }

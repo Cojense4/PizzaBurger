@@ -1,7 +1,7 @@
 package com.prog02.pizza_burger.model.pizza;
 import com.prog02.pizza_burger.model.common.MenuItem;
 
-public enum Toppings implements MenuItem {
+public enum Topping implements MenuItem {
     // Cheese
     ASIAGO("Asiago", "Cheese", 3.75),
     GOUDA("Gouda", "Cheese", 4.50),
@@ -23,12 +23,13 @@ public enum Toppings implements MenuItem {
     private final String toppingType;
 
     // Enum constructor is private by default.
-    Toppings(String itemName, String toppingType, double price) {
+    Topping(String itemName, String toppingType, double price) {
         this.itemName = itemName;
         this.price = price;
         this.toppingType = toppingType;
     }
 
+    public String getType() {return this.toppingType;}
     @Override
     public String getName() {
         return this.itemName + " " + this.toppingType;

@@ -22,15 +22,6 @@ public enum Cheese implements MenuItem {
         this.isAged = isAged;
     }
 
-    public static Cheese fromItemName(String itemName) {
-        for (Cheese cheese : values()) {
-            if (cheese.itemName.equals(itemName)) {
-                return cheese;
-            }
-        }
-        return AMERICAN;
-    }
-
     public void customizeCheese(boolean newIsSmoked, boolean newIsAged) {
         this.isSmoked = newIsSmoked;
         this.isAged = newIsAged;

@@ -113,7 +113,7 @@ public class BurgerBuilderController implements Initializable {
     }
 
     private Burger makeBurger() {
-        Bun uBun = Bun.fromItemName(bunCombo.getValue());
+        Bun uBun = MenuItem.fromItemName(Bun.class, bunCombo.getValue());
         ArrayList<Patty> uPatties = new ArrayList<>();
         ArrayList<Cheese> uCheeses = new ArrayList<>();
         ArrayList<Garnish> uGarnish = new ArrayList<>();
@@ -121,7 +121,7 @@ public class BurgerBuilderController implements Initializable {
         // Bun Process
         uBun.setIsToasted(toastedCheck.isSelected());
         // Patty Process
-        Patty pat = Patty.fromItemName(pattyTypeCombo.getValue());
+        Patty pat = MenuItem.fromItemName(Patty.class, pattyTypeCombo.getValue());
         // Provide a default value if the combo box value is null or empty
         String pattyAmtValue = pattyAmtCombo.getValue();
         int patAmt = 1; // default value
@@ -139,7 +139,7 @@ public class BurgerBuilderController implements Initializable {
             uPatties.add(pat);
         }
         // Cheese Process
-        Cheese chz = Cheese.fromItemName(chzTypeCombo.getValue());
+        Cheese chz = MenuItem.fromItemName(Cheese.class, chzTypeCombo.getValue());
         boolean smoked = smokedCheck.isSelected();
         boolean aged = agedCheck.isSelected();
         chz.customizeCheese(smoked, aged);
