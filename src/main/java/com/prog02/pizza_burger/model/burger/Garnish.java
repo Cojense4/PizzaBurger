@@ -25,16 +25,6 @@ public enum Garnish implements MenuItem {
         this.isVeggie = isVeggie;
     }
 
-    public static Garnish fromItemName(String itemName) {
-        for (Garnish garnish : values()) {
-            if (garnish.itemName.equals(itemName)) {
-                return garnish;
-            }
-        }
-        return TOMATO;
-    }
-
-
     @Override
     public String getName() {
         return this.itemName + (isVeggie ? " (Veggie)" : "");
