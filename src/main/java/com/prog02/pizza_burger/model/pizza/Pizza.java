@@ -1,8 +1,10 @@
 package com.prog02.pizza_burger.model.pizza;
 
+import com.prog02.pizza_burger.model.common.MenuItem;
+
 import java.util.ArrayList;
 
-public class Pizza {
+public class Pizza implements MenuItem {
     private Crust crust;
     private Sauce sauce;
     private ArrayList<Topping> toppings;
@@ -12,6 +14,16 @@ public class Pizza {
         this.crust = crust;
         this.sauce = sauce;
         this.toppings = toppings;
+    }
+
+    @Override
+    public double getPrice() {
+        return 0;
+    }
+
+    @Override
+    public String getName() {
+        return "";
     }
 
     /**

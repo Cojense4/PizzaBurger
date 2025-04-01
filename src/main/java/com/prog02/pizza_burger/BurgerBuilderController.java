@@ -3,7 +3,6 @@ package com.prog02.pizza_burger;
 import com.prog02.pizza_burger.model.burger.*;
 
 import com.prog02.pizza_burger.model.common.MenuItem;
-import com.prog02.pizza_burger.model.common.Priceable;
 import com.prog02.pizza_burger.model.user.CartManager;
 import javafx.fxml.Initializable;
 import java.net.URL;

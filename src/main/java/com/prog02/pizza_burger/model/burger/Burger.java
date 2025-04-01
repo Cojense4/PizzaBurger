@@ -5,6 +5,7 @@ import com.prog02.pizza_burger.model.common.MenuItem;
 import java.util.ArrayList;
 
 public class Burger implements MenuItem {
+    private final double price;
     private Bun bun;
     private ArrayList<Patty> patties;
     private ArrayList<Cheese> cheeses;
@@ -16,6 +17,7 @@ public class Burger implements MenuItem {
         this.patties = patties;
         this.cheeses = cheeses;
         this.garnish = garnish;
+        this.price = getPrice();
     }
 
     /**
@@ -89,7 +91,18 @@ public class Burger implements MenuItem {
 
     @Override
     public double getPrice() {
-        return 0;
+        double totalPrice = 0.0;
+        totalPrice += bun.getPrice();
+        for (Patty patty : patties) {
+            totalPrice += patty.getPrice();
+        }
+        for (Cheese cheese : cheeses) {
+            totalPrice += cheese.getPrice();
+        }
+        for (Garnish garnish : garnish) {
+            totalPrice += garnish.getPrice();
+        }
+        return totalPrice;
     }
 
     @Override
