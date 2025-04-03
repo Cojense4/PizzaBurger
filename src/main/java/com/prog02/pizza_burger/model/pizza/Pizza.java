@@ -1,6 +1,8 @@
 package com.prog02.pizza_burger.model.pizza;
 
 import com.prog02.pizza_burger.model.common.AbstractMenuItem;
+import com.prog02.pizza_burger.model.common.Priceable;
+import com.prog02.pizza_burger.model.common.PriceableWrapper;
 
 import java.util.ArrayList;
 
@@ -45,6 +47,26 @@ public class Pizza extends AbstractMenuItem {
             totalPrice += topping.getPrice();
         }
         return totalPrice;
+    }
+    /**
+     * Returns a sorted list of all Pizza components (crust, sauce, and toppings) based on their price.
+     * Components are sorted in ascending order (lowest price first).
+     */
+    public ArrayList<Priceable> getSortedComponents() {
+        ArrayList<Priceable> components = new ArrayList<>();
+        if (crust != null) {
+            components.add(new PriceableWrapper(crust));
+        }
+        if (sauce != null) {
+            components.add(new PriceableWrapper(sauce));
+        }
+        if (toppings != null) {
+            for (Topping topping : toppings) {
+                components.add(new PriceableWrapper(topping));
+            }
+        }
+        components.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice()));
+        return components;
     }
 
 }
