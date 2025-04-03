@@ -1,22 +1,23 @@
 package com.prog02.pizza_burger;
 
 import com.prog02.pizza_burger.model.burger.*;
-
 import com.prog02.pizza_burger.model.common.MenuItem;
 import com.prog02.pizza_burger.model.user.CartManager;
+
 import javafx.fxml.Initializable;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.ArrayList;
+import java.util.Map;
 
 import javafx.fxml.FXML;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 
-
-import java.util.ArrayList;
-import java.util.Map;
+import static com.prog02.pizza_burger.App.*;
 
 public class BurgerBuilderController implements Initializable {
     // buns
@@ -60,7 +61,6 @@ public class BurgerBuilderController implements Initializable {
     JFXCheckBox cookOnionChk;
     // Non-FXML variables
     Map<Integer, String> seasoningMap;
-    ArrayList<Burger> burgerCart;
     CartManager cartManager = CartManager.getInstance();
 
 
@@ -91,24 +91,22 @@ public class BurgerBuilderController implements Initializable {
             chzTypeCombo.getItems().add(cheese.getName());
         }
         for (int i = 1; i < 3; i++) {
-            chzAmtCombo.getItems().add(Integer.toString(i) + "x");
+            chzAmtCombo.getItems().add(i + "x");
         }
     }
 
     @FXML
-    protected void handleAddToCart() {
+    protected void handleAddToCart() throws IOException {
         Burger newBurg = makeBurger();
         cartManager.addItem(newBurg);
-        for (MenuItem item : cartManager.getCartItems()) {
-            item.display();
-        }
+        setRoot("Main.fxml");
     }
 
     @FXML
-    protected void handlePayNow() {
+    protected void handlePayNow() throws IOException {
         Burger newBurg = makeBurger();
         cartManager.addItem(newBurg);
-        newBurg.display();
+        setRoot("ShopCart.fxml");
     }
 
     private Burger makeBurger() {

@@ -1,10 +1,10 @@
 package com.prog02.pizza_burger.model.pizza;
 
-import com.prog02.pizza_burger.model.common.MenuItem;
+import com.prog02.pizza_burger.model.common.AbstractMenuItem;
 
 import java.util.ArrayList;
 
-public class Pizza implements MenuItem {
+public class Pizza extends AbstractMenuItem {
     private Crust crust;
     private Sauce sauce;
     private ArrayList<Topping> toppings;
@@ -16,68 +16,35 @@ public class Pizza implements MenuItem {
         this.toppings = toppings;
     }
 
-    @Override
-    public double getPrice() {
-        return 0;
-    }
-
-    @Override
-    public String getName() {
-        return "";
-    }
-
     /**
      * Displays the pizza build as a printed receipt.
      */
-    public void display() {
-        double totalPrice = 0.0;
-        System.out.println("----- Pizza Receipt -----");
-
-        // Display Crust
-        System.out.println("Crust:");
-        crust.display();
-        totalPrice += crust.getPrice();
-
-        // Display Sauce
-        System.out.println("Sauce:");
-        sauce.display();
-        totalPrice += sauce.getPrice();
-
-        // Display Topping, if any
+    public String display() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("---------- Pizza ----------\n");
+        // crust
+        sb.append(crust.display()).append("\n");
+        // sauce
+        sb.append(sauce.display()).append("\n");
+        // toppings
         if (toppings != null && !toppings.isEmpty()) {
-            System.out.println("Topping:");
+            sb.append("Toppings:\n");
             for (Topping topping : toppings) {
-                topping.display();
-                totalPrice += topping.getPrice();
+                sb.append(topping.display()).append("\n");
             }
         }
-
-        System.out.println("-------------------------");
-        System.out.printf("Total Price: $%.2f\n", totalPrice);
+        return sb.toString();
     }
 
-    // Getters and setters if needed
-    public Crust getCrust() {
-        return crust;
+    @Override
+    public double getPrice() {
+        double totalPrice = 0.0;
+        totalPrice += crust.getPrice();
+        totalPrice += sauce.getPrice();
+        for (Topping topping : toppings) {
+            totalPrice += topping.getPrice();
+        }
+        return totalPrice;
     }
 
-    public void setCrust(Crust crust) {
-        this.crust = crust;
-    }
-
-    public Sauce getSauce() {
-        return sauce;
-    }
-
-    public void setSauce(Sauce sauce) {
-        this.sauce = sauce;
-    }
-
-    public ArrayList<Topping> getToppings() {
-        return toppings;
-    }
-
-    public void setToppings(ArrayList<Topping> toppings) {
-        this.toppings = toppings;
-    }
 }

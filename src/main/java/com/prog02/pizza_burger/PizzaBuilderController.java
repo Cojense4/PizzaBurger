@@ -8,11 +8,11 @@ import com.prog02.pizza_burger.model.user.CartManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+
+import static com.prog02.pizza_burger.App.*;
 
 public class PizzaBuilderController implements Initializable {
     // crust
@@ -42,7 +42,6 @@ public class PizzaBuilderController implements Initializable {
     JFXCheckBox extraDoubleChk;
     // Non-FXML variables
     Map<Integer, String> sauceAmtMap;
-    ArrayList<Pizza> burgerCart;
     CartManager cartManager = CartManager.getInstance();
 
 
@@ -66,24 +65,31 @@ public class PizzaBuilderController implements Initializable {
         }
         // topping init
         for (Topping topping : Topping.values()) {
-            System.out.println(topping + topping.getType());
+            if (Objects.equals(topping.getType(), "Cheese")) {
+                chzCombo.getItems().add(topping.getName());
+                extraCombo.getItems().add(topping.getName());
+            } else if (Objects.equals(topping.getType(), "Veggie")) {
+                vegCombo.getItems().add(topping.getName());
+                extraCombo.getItems().add(topping.getName());
+            } else if (Objects.equals(topping.getType(), "Meat")) {
+                meatCombo.getItems().add(topping.getName());
+                extraCombo.getItems().add(topping.getName());
+            }
         }
     }
     
     @FXML
-    protected void handleAddToCart() {
+    protected void handleAddToCart() throws IOException {
         Pizza newPiz = makePizza();
-        cartManager.addItem((MenuItem)newPiz);
-        for (MenuItem item : cartManager.getCartItems()) {
-            item.display();
-        }
+        cartManager.addItem(newPiz);
+        setRoot("Main.fxml");
     }
 
     @FXML
-    protected void handlePayNow() {
+    protected void handlePayNow() throws IOException {
         Pizza newPiz = makePizza();
-        cartManager.addItem((MenuItem)newPiz);
-        newPiz.display();
+        cartManager.addItem(newPiz);
+        setRoot("ShopCart.fxml");
     }
 
     private Pizza makePizza() {
@@ -103,9 +109,32 @@ public class PizzaBuilderController implements Initializable {
             }
         }
 
-        // topping processing
-        uTopping.add(Topping.GRUYERE);
         // Topping Processing
+        List<String> toppingTypes = Arrays.asList(
+                chzCombo.getValue(),   // Cheese
+                vegCombo.getValue(),   // Veggie
+                meatCombo.getValue(),  // Meat
+                extraCombo.getValue()  // Extra
+        );
+
+        List<Boolean> toppingDoubles = Arrays.asList(
+                chzDoubleChk.isSelected(),  // Double Cheese?
+                vegDoubleChk.isSelected(),    // Double Veggie?
+                meatDoubleChk.isSelected(),   // Double Meat?
+                extraDoubleChk.isSelected()   // Double Extra?
+        );
+
+        for (int i = 0; i < toppingTypes.size(); i++) {
+            String toppingType = toppingTypes.get(i);
+            if (toppingType != null && !toppingType.isEmpty()) {
+                // Add topping once
+                uTopping.add(MenuItem.fromItemName(Topping.class, toppingType));
+                // If doubling is enabled, add it a second time
+                if (toppingDoubles.get(i)) {
+                    uTopping.add(MenuItem.fromItemName(Topping.class, toppingType));
+                }
+            }
+        }
         return new Pizza(uCrust, uSauce, uTopping);
     }
 

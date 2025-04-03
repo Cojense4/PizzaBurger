@@ -27,5 +27,8 @@ public class CartManager {
         return cartItems;
     }
 
+    public void clearCart() {
+        cartItems.clear();
+    }
     // Additional methods for managing the cart (remove, clear, etc.)
 }

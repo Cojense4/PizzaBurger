@@ -15,11 +15,6 @@ public abstract class Priceable implements MenuItem, Comparable<MenuItem> {
     public String getName() { return this.itemName; }
 
     @Override
-    public void display() {
-        toString();
-    }
-
-    @Override
     public int compareTo(MenuItem otherItem) {
         return Double.compare(this.getPrice(), otherItem.getPrice());    
     }
