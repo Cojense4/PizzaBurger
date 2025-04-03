@@ -56,6 +56,26 @@ public class Pizza extends AbstractMenuItem {
         }
         return totalPrice;
     }
+    /**
+     * Returns a sorted list of all Pizza components (crust, sauce, and toppings) based on their price.
+     * Components are sorted in ascending order (lowest price first).
+     */
+    public ArrayList<Priceable> getSortedComponents() {
+        ArrayList<Priceable> components = new ArrayList<>();
+        if (crust != null) {
+            components.add(new PriceableWrapper(crust));
+        }
+        if (sauce != null) {
+            components.add(new PriceableWrapper(sauce));
+        }
+        if (toppings != null) {
+            for (Topping topping : toppings) {
+                components.add(new PriceableWrapper(topping));
+            }
+        }
+        components.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice()));
+        return components;
+    }
 
     public Crust getCrust() { return crust; }
     public ArrayList<Sauce> getSauces() { return sauces; }
