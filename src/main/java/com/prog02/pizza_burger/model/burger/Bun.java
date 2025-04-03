@@ -8,9 +8,8 @@ public enum Bun implements MenuItem {
     SESAME("Sesame Bun", 3, true),
     SOURDOUGH("Sourdough Bun", 4.25, true);
 
-
     private final String itemName;
-    private final double price;
+    private double price;
     private boolean isToasted;
 
     // New constructor with three parameters
@@ -23,13 +22,13 @@ public enum Bun implements MenuItem {
     public void setIsToasted(boolean isToasted) {
         this.isToasted = isToasted;
     }
-    @Override
-    public String getName() {
-        return (isToasted? "Toasted " : "") + this.itemName;
-    }
 
     @Override
     public double getPrice() {
         return this.price;
     }
+
+    @Override
+    public String getName() { return this.itemName; }
+
 }

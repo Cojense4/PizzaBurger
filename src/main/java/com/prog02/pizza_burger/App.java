@@ -10,28 +10,32 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static String fxmlFilePath = "Main.fxml"; // default FXML file
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("PizzaBuilder.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 700);
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxmlFilePath));
+        Parent root = fxmlLoader.load();
+        scene = new Scene(root, 400, 700);
 
         stage.setTitle("Pizza Burger!");
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    // This method allows external parts of your application to switch the FXML view.
+    public static void setRoot(String newFxmlFilePath) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(newFxmlFilePath));
+        Parent newRoot = loader.load();
+        scene.setRoot(newRoot);
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
+    // Optionally, you can modify the main method to accept a command-line parameter
+    // that sets the initial FXML file.
     public static void main(String[] args) {
-        launch();
+        if (args.length > 0) {
+            fxmlFilePath = args[0];
+        }
+        launch(args);
     }
-
 }

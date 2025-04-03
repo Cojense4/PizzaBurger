@@ -1,11 +1,12 @@
 package com.prog02.pizza_burger.model.burger;
 
-import com.prog02.pizza_burger.model.common.MenuItem;
+import com.prog02.pizza_burger.model.common.AbstractMenuItem;
 
 import java.util.ArrayList;
 
-public class Burger implements MenuItem {
+public class Burger extends AbstractMenuItem {
     private final double price;
+    private final String description;
     private Bun bun;
     private ArrayList<Patty> patties;
     private ArrayList<Cheese> cheeses;
@@ -18,75 +19,38 @@ public class Burger implements MenuItem {
         this.cheeses = cheeses;
         this.garnish = garnish;
         this.price = getPrice();
+        this.description = "";
     }
 
     /**
      * Displays the Burger build as a printed receipt.
      */
-    public void display() {
-        double totalPrice = 0.0;
-        System.out.println("----- Burger Receipt -----");
-
-        // Display Crust
-        bun.display();
-        totalPrice += bun.getPrice();
-
-        // Display Patty
+    @Override
+    public String display() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("---------- Burger ----------\n");
+        // bun
+        sb.append(bun.display()).append("\n");
+        // Patties
         if (patties != null && !patties.isEmpty()) {
             for (Patty patty : patties) {
-                patty.display();
-                totalPrice += patty.getPrice();
+                sb.append(patty.display()).append("\n");
             }
         }
-
-        // Display Cheese, if any
+        // Cheeses
         if (cheeses != null && !cheeses.isEmpty()) {
             for (Cheese cheese : cheeses) {
-                cheese.display();
-                totalPrice += cheese.getPrice();
+                sb.append(cheese.display()).append("\n");
             }
         }
-
-        // Display Garnish, if any
+        // Garnishes
         if (garnish != null && !garnish.isEmpty()) {
-            System.out.println("Garnishes:");
+            sb.append("Garnishes:");
             for (Garnish topping : garnish) {
-                topping.display();
-                totalPrice += topping.getPrice();
+                sb.append(topping.display()).append("\n");
             }
         }
-
-        System.out.println("-------------------------");
-        System.out.printf("Total Price: $%.2f\n", totalPrice);
-    }
-
-    // Getters and setters if needed
-    public Bun getBun() {
-        return bun;
-    }
-    public void setBun(Bun bun) {
-        this.bun = bun;
-    }
-
-    public ArrayList<Patty> getPatties() {
-        return patties;
-    }
-    public void setPatties(ArrayList<Patty> patties) {
-        this.patties = patties;
-    }
-
-    public ArrayList<Cheese> getCheeses() {
-        return cheeses;
-    }
-    public void setCheeses(ArrayList<Cheese> newCheese) {
-        this.cheeses = newCheese;
-    }
-
-    public ArrayList<Garnish> getGarnishes() {
-        return garnish;
-    }
-    public void setGarnishes(ArrayList<Garnish> garnish) {
-        this.garnish = garnish;
+        return sb.toString();
     }
 
     @Override
