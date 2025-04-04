@@ -67,8 +67,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.prog02.pizza_burger.App</mainClass>
-                            <launcher>app</launcher>
+                            <mainClass>com.prog02.pizza_burger.App</mainClass>                            <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
                             <noManPages>true</noManPages>
