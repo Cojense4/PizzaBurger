@@ -27,9 +27,20 @@ public enum Cheese implements MenuItem {
         this.isAged = newIsAged;
     }
 
-    @Override
-    public String getName() {
+    public String getFancyName() {
         return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName + " Cheese";
+    }
+
+    public String getName() {
+        return this.itemName;
+    }
+
+    public Boolean isSmoked() {
+        return this.isSmoked;
+    }
+
+    public Boolean isAged() {
+        return this.isAged;
     }
 
     @Override

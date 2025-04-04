@@ -1,5 +1,9 @@
 package com.prog02.pizza_burger.model.common;
 
+import com.prog02.pizza_burger.model.burger.*;
+
+import java.util.ArrayList;
+
 public abstract class AbstractMenuItem implements MenuItem, Comparable<MenuItem> {
     protected String itemName = "";
     protected double price = 0.0;
@@ -27,5 +31,4 @@ public abstract class AbstractMenuItem implements MenuItem, Comparable<MenuItem>
     public int compareTo(MenuItem otherItem) {
         return Double.compare(this.getPrice(), otherItem.getPrice());
     }
-
 }

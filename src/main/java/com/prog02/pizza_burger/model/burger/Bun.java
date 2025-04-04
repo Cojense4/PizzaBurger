@@ -19,7 +19,7 @@ public enum Bun implements MenuItem {
         this.isToasted = isToasted;
     }
 
-    public void setIsToasted(boolean isToasted) {
+    public void customize(boolean isToasted) {
         this.isToasted = isToasted;
     }
 
