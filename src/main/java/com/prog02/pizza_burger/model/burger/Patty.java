@@ -21,22 +21,30 @@ public enum Patty implements MenuItem {
         this.seasonLevel = seasonLevel;
     }
 
-    public static Patty fromItemName(String itemName) {
-        for (Patty patty : Patty.values()) {
-            if (patty.itemName.equals(itemName)) {
-                return patty;
-            }
-        }
-        return BEEF;
-    }
-
     public void customizePatty(int newCookLevel, int newSeasonLevel) {
         this.cookLevel = newCookLevel;
         this.seasonLevel = newSeasonLevel;
     }
 
-    public String getSeasoningLevel() {
+    public String getSeasoning() {
         return switch (this.seasonLevel) {
+            case 1: {
+                yield "Light seasonings";
+            }
+            case 2: {
+                yield "Normal seasonings";
+            }
+            case 3: {
+                yield "Extra seasoning";
+            }
+            default: {
+                yield "No seasonings";
+            }
+        };
+    }
+
+    public String getSeasoning(int newSeasonLevel) {
+        return switch (newSeasonLevel) {
             case 1: {
                 yield "Light seasonings";
             }
@@ -60,6 +68,10 @@ public enum Patty implements MenuItem {
             case 5 -> "Well Done";
             default -> "Medium";
         };
+    }
+
+    public Integer getCookInt() {
+        return this.cookLevel;
     }
 
     @Override
