@@ -72,16 +72,14 @@ public class BurgerBuilderController implements Initializable {
             patTypeCombo3.getItems().add(patty.getName());
             patTypeCombo4.getItems().add(patty.getName());
         }
-
+        seasoningMap = exPatty.getSeasoningMap();
         for (int x = 0; x < 4; x++) {
-            seasoningMap = exPatty.getSeasoningMap();
             patSeasonCombo1.getItems().add(seasoningMap.get(x));
             patSeasonCombo2.getItems().add(seasoningMap.get(x));
             patSeasonCombo3.getItems().add(seasoningMap.get(x));
             patSeasonCombo4.getItems().add(seasoningMap.get(x));
             pattyCountCombo.getItems().add(String.valueOf(x+1));
         }
-
         // Cheese init
         for (Cheese cheese : Cheese.values()) {
             chzTypeCombo1.getItems().add(cheese.getName());
@@ -107,25 +105,25 @@ public class BurgerBuilderController implements Initializable {
         if (!tPatties.isEmpty()) {
             Patty p1 = tPatties.getFirst();
             patTypeCombo1.setValue(p1.getName());
-            patSeasonCombo1.setValue(p1.getSeasoning());
+            patSeasonCombo1.setValue(p1.getSeasonStr());
             patCookSlide1.setValue(p1.getCookInt());
 
             if (tPatties.size() >= 2) {
                 Patty p2 = tPatties.get(1);
                 patTypeCombo2.setValue(p2.getName());
-                patSeasonCombo2.setValue(p2.getSeasoning());
+                patSeasonCombo2.setValue(p2.getSeasonStr());
                 patCookSlide2.setValue(p2.getCookInt());
             }
             if (tPatties.size() >= 3) {
                 Patty p3 = tPatties.get(2);
                 patTypeCombo3.setValue(p3.getName());
-                patSeasonCombo3.setValue(p3.getSeasoning());
+                patSeasonCombo3.setValue(p3.getSeasonStr());
                 patCookSlide3.setValue(p3.getCookInt());
             }
             if (tPatties.size() >= 4) {
                 Patty p4 = tPatties.get(3);
                 patTypeCombo4.setValue(p4.getName());
-                patSeasonCombo4.setValue(p4.getSeasoning());
+                patSeasonCombo4.setValue(p4.getSeasonStr());
                 patCookSlide4.setValue(p4.getCookInt());
             }
         }
@@ -159,7 +157,7 @@ public class BurgerBuilderController implements Initializable {
                 chzAgeChk4.setSelected(chz4.isAged());
                 chzBox4.setVisible(true);
             }
-            
+
             // 4. Set garnish checkboxes
             ArrayList<Garnish> tGarnishes = fromTemplate.getGarnishes();
             lettuceChk.setSelected(tGarnishes.contains(Garnish.LETTUCE));

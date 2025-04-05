@@ -3,11 +3,11 @@ import com.prog02.pizza_burger.model.common.MenuItem;
 
 public enum Cheese implements MenuItem {
     // Cheese
-    AMERICAN("American",  1.00, false, false),
-    WHITE_AMERICAN("Gouda", 1.75, false, false),
-    GOUDA("Gouda", 1.50, false, false),
-    PEPPERJACK("PepperJack",  2.00, false, false),
-    SWISS("Swiss", 1.50, false, false);
+    AMERICAN("American Cheese",  1.00, false, false),
+    CHEDDAR("Cheddar Cheese", 1.75, false, false),
+    GOUDA("Gouda Cheese", 1.50, false, false),
+    PEPPER_JACK("Pepper-jack Cheese",  2.00, false, false),
+    SWISS("Swiss Cheese", 1.50, false, false);
 
     private String itemName;
     private double price;
@@ -22,7 +22,7 @@ public enum Cheese implements MenuItem {
         this.isAged = isAged;
     }
 
-    public String getFancyName() {
+    public String getNiceName() {
         return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName + " Cheese";
     }
 
@@ -49,11 +49,11 @@ public enum Cheese implements MenuItem {
         return this.isAged;
     }
 
-    public void setPrice(double newPrice) {
-        this.price = newPrice;
-    }
     public void setName(String newItemName) {
         this.itemName = newItemName;
+    }
+    public void setPrice(double newPrice) {
+        this.price = newPrice;
     }
     public void setIsSmoked(boolean newIsSmoked) {
         this.isSmoked = newIsSmoked;
