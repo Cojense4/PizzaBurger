@@ -69,9 +69,10 @@ public class Burger extends AbstractMenuItem {
         return totalPrice;
     }
 
-    public void customize(String newItemName) {
+    public void setItemName(String newItemName) {
         this.itemName = newItemName;
     }
+
     /**
      * Returns a sorted ArrayList of all Burger components (crust, sauce, and toppings) based on their price.
      * Components are sorted in ascending order (lowest price first).
@@ -100,28 +101,28 @@ public class Burger extends AbstractMenuItem {
         return components;
     }
 
-    /* Getters and Setters
-    For use to modify the burger (through BurgerTemplate)
-     */
-    public Bun getBun() { return bun; }
-    public void setBun(Bun bun) { this.bun = bun; }
-
-    public ArrayList<Patty> getPatties() { return patties; }
-    public ArrayList<Cheese> getCheeses() { return cheeses; }
-    public ArrayList<Garnish> getGarnishes() { return garnishes; }
-
-    // Utility to add a patty (for customization)
-    public void addPatty(Patty patty) {
-        if (patties.size() < 4) patties.add(patty); // limit to 4 patties
-    }
-    public void removePatty(int index) {
-        if (index >= 0 && index < patties.size()) patties.remove(index);
-    }
-    // Similar methods for cheese slices if needed
-    public void addCheese(Cheese cheese) {
-        if (cheeses.size() < 4) cheeses.add(cheese);
-    }
-    public void removeCheese(int index) {
-        if (index >= 0 && index < cheeses.size()) cheeses.remove(index);
-    }
+//    /* Getters and Setters
+//    For use to modify the burger (through BurgerTemplate)
+//     */
+//    public Bun getBun() { return bun; }
+//    public void setBun(Bun bun) { this.bun = bun; }
+//
+//    public ArrayList<Patty> getPatties() { return patties; }
+//    public ArrayList<Cheese> getCheeses() { return cheeses; }
+//    public ArrayList<Garnish> getGarnishes() { return garnishes; }
+//
+//    // Utility to add a patty (for customization)
+//    public void addPatty(Patty patty) {
+//        if (patties.size() < 4) patties.add(patty); // limit to 4 patties
+//    }
+//    public void removePatty(int index) {
+//        if (index >= 0 && index < patties.size()) patties.remove(index);
+//    }
+//    // Similar methods for cheese slices if needed
+//    public void addCheese(Cheese cheese) {
+//        if (cheeses.size() < 4) cheeses.add(cheese);
+//    }
+//    public void removeCheese(int index) {
+//        if (index >= 0 && index < cheeses.size()) cheeses.remove(index);
+//    }
 }

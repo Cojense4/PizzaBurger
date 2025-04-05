@@ -1,8 +1,4 @@
-
 package com.prog02.pizza_burger.model.common;
-
-import com.prog02.pizza_burger.model.common.MenuItem;
-
 /**
  * A wrapper class that adapts a MenuItem to Priceable.
  */
@@ -14,6 +10,4 @@ public class PriceableWrapper extends Priceable {
         super(item.getPrice(), item.getName());
         this.item = item;
     }
-
-    // Optionally, delegate additional methods if needed.
 }
