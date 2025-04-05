@@ -1,7 +1,6 @@
 package com.prog02.pizza_burger.model.burger;
 import com.prog02.pizza_burger.model.common.MenuItem;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public enum Patty implements MenuItem {
@@ -29,7 +28,6 @@ public enum Patty implements MenuItem {
             5, "Well Done"
     );
 
-
     // New constructor with four parameters
     Patty(String itemName, double price, int cookLevel, int seasonLevel) {
         this.itemName = itemName;
@@ -38,11 +36,14 @@ public enum Patty implements MenuItem {
         this.seasonLevel = seasonLevel;
     }
 
-    public void customizePatty(int newCookLevel, int newSeasonLevel) {
-        this.cookLevel = newCookLevel;
-        this.seasonLevel = newSeasonLevel;
+    @Override
+    public String display() {
+        return itemName +
+                " (" + getSeasonStr() + ")" +
+                " (" + getCookStr() + ")";
     }
 
+    // Getters & Setters
     @Override
     public double getPrice() {
         if (this.seasonLevel > 3) {
@@ -54,27 +55,14 @@ public enum Patty implements MenuItem {
     public String getName() {
         return this.itemName;
     }
-    public String getSeasoning() {
-        if (seasonLevel > 3 || seasonLevel < 1) this.seasonLevel = 1;
+    public String getSeasonStr() {
         return SeasoningsMap.get(seasonLevel);
-    }
-    public Map<Integer, String> getSeasoningMap() {
-        return SeasoningsMap;
-    };
-    public String getCookLevel() {
-        return switch (this.cookLevel) {
-            case 1 -> "Rare";
-            case 2 -> "Medium Rare";
-            case 4 -> "Medium-Well";
-            case 5 -> "Well Done";
-            default -> "Medium";
-        };
     }
     public int getCookInt() {
         return this.cookLevel;
     }
-    public Map<Integer, String> getCookMap() {
-        return CookMap;
+    public String getCookStr() {
+        return CookMap.get(cookLevel);
     }
 
     public void setPrice(double newPrice) {
@@ -89,4 +77,13 @@ public enum Patty implements MenuItem {
     public void setCookLevel(int newCookLevel) {
         this.cookLevel = newCookLevel;
     }
+
+    // External class Utils
+    public Map<Integer, String> getCookMap() {
+        return CookMap;
+    }
+    public Map<Integer, String> getSeasoningMap() {
+        return SeasoningsMap;
+    };
+
 }

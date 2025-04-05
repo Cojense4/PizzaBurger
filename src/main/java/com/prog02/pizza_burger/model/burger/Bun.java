@@ -23,6 +23,7 @@ public enum Bun implements MenuItem {
     public String display() {
         return (isToasted) ? "Toasted " + itemName : itemName;
     }
+
     @Override
     public double getPrice() {
         return price;

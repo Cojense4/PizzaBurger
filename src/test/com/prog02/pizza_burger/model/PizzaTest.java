@@ -3,6 +3,7 @@ package com.prog02.pizza_burger.model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.prog02.pizza_burger.model.common.Priceable;
 import com.prog02.pizza_burger.model.pizza.*;
@@ -16,17 +17,21 @@ public class PizzaTest {
     public void testPizzaComponents() {
         // Using enums for Crust, Sauce, and Topping.
         Crust testCrust = Crust.THIN;
-        Sauce testSauce = Sauce.TRADITIONAL;
+        ArrayList<Sauce> testSauces = new ArrayList<>();
+        testSauces.add(Sauce.TRADITIONAL);
         ArrayList<Topping> toppings = new ArrayList<>();
         toppings.add(Topping.PEPPERONI);
         toppings.add(Topping.MUSHROOM);
 
         // Instantiate a Pizza object.
-        Pizza testPizza = new Pizza(testCrust, testSauce, toppings);
+        Pizza testPizza = new Pizza(testCrust, testSauces, toppings);
         assertNotNull(testPizza, "Pizza should be instantiated successfully");
 
         // Calculate the expected price (sum of components).
-        double expectedPrice = testCrust.getPrice() + testSauce.getPrice();
+        double expectedPrice = testCrust.getPrice();
+        for (MenuItem sauce : testSauces) {
+            expectedPrice += sauce.getPrice();
+        }
         for (MenuItem topping : toppings) {
             expectedPrice += topping.getPrice();
         }
@@ -39,19 +44,25 @@ public class PizzaTest {
     public void testPizzaDisplay() {
         // Using enums for Crust, Sauce, and Topping.
         Crust testCrust = Crust.THIN;
-        Sauce testSauce = Sauce.TRADITIONAL;
+        ArrayList<Sauce> testSauces = new ArrayList<>();
+        testSauces.add(Sauce.TRADITIONAL);
         ArrayList<Topping> toppings = new ArrayList<>();
         toppings.add(Topping.PEPPERONI);
         toppings.add(Topping.MUSHROOM);
 
         // Instantiate a Pizza object.
-        Pizza testPizza = new Pizza(testCrust, testSauce, toppings);
+        Pizza testPizza = new Pizza(testCrust, testSauces, toppings);
 
         // Build the expected display string.
         StringBuilder expectedDisplay = new StringBuilder();
         expectedDisplay.append("---------- Pizza ----------\n");
         expectedDisplay.append(testCrust.display()).append("\n");
-        expectedDisplay.append(testSauce.display()).append("\n");
+        if (!testSauces.isEmpty()) {
+            expectedDisplay.append("--- Sauces ---\n");
+            for (Sauce sauce : testSauces) {
+                expectedDisplay.append(sauce.display()).append("\n");
+            }
+        }
         if (!toppings.isEmpty()) {
             expectedDisplay.append("Toppings:\n");
             for (Topping topping : toppings) {
@@ -67,21 +78,21 @@ public class PizzaTest {
     public void testPizzaComponentsWithNoToppings() {
         // Test pizza with an empty toppings list.
         Crust testCrust = Crust.CAULIFLOWER;
-        Sauce testSauce = Sauce.GARLIC;
+        Sauce testSauces = Sauce.GARLIC;
         ArrayList<Topping> emptyToppings = new ArrayList<>();
 
-        Pizza testPizza = new Pizza(testCrust, testSauce, emptyToppings);
+        Pizza testPizza = new Pizza(testCrust, testSauces, emptyToppings);
         assertNotNull(testPizza, "Pizza should be instantiated successfully with no toppings");
 
         // Expected price is just crust + sauce.
-        double expectedPrice = testCrust.getPrice() + testSauce.getPrice();
+        double expectedPrice = testCrust.getPrice() + testSauces.getPrice();
         assertEquals(expectedPrice, testPizza.getPrice(), 0.001, "Pizza price with no toppings should be sum of crust and sauce");
 
         // Expected display should not include the 'Toppings:' section.
         StringBuilder expectedDisplay = new StringBuilder();
         expectedDisplay.append("---------- Pizza ----------\n");
         expectedDisplay.append(testCrust.display()).append("\n");
-        expectedDisplay.append(testSauce.display()).append("\n");
+        expectedDisplay.append(testSauces.display()).append("\n");
         assertEquals(expectedDisplay.toString(), testPizza.display(), "Pizza display should not include toppings when list is empty");
     }
 
@@ -89,31 +100,31 @@ public class PizzaTest {
     public void testCustomizeSauceEffectOnPizza() {
         // Test that customizing a sauce affects the pizza price and display.
         Crust testCrust = Crust.TRADITIONAL;
-        Sauce testSauce = Sauce.TRADITIONAL;
+        Sauce testSauces = Sauce.TRADITIONAL;
         ArrayList<Topping> toppings = new ArrayList<>();
         toppings.add(Topping.BACON);
         toppings.add(Topping.OLIVES);
 
         // Save the original price to restore later.
-        double originalPrice = testSauce.getPrice();
+        double originalPrice = testSauces.getPrice();
         try {
             // Customize the sauce: change price to 6.00.
-            testSauce.customizeSauce(6.00, 3);
-            Pizza testPizza = new Pizza(testCrust, testSauce, toppings);
+            testSauces.customizeSauce(6.00, 3);
+            Pizza testPizza = new Pizza(testCrust, testSauces, toppings);
 
             // Expected price calculation.
-            double expectedPrice = testCrust.getPrice() + testSauce.getPrice();
+            double expectedPrice = testCrust.getPrice() + testSauces.getPrice();
             for (MenuItem topping : toppings) {
                 expectedPrice += topping.getPrice();
             }
             assertEquals(expectedPrice, testPizza.getPrice(), 0.001, "Pizza price should reflect customized sauce price");
 
             // Verify display reflects the customized sauce price.
-            String expectedSauceDisplay = testSauce.getName() + " (" + String.format("%.2f", testSauce.getPrice()) + ")";
+            String expectedSauceDisplay = testSauces.getName() + " (" + String.format("%.2f", testSauces.getPrice()) + ")";
             assertTrue(testPizza.display().contains(expectedSauceDisplay), "Pizza display should include the customized sauce price");
         } finally {
             // Restore the original sauce price (assuming quantity remains unchanged for simplicity).
-            testSauce.customizeSauce(originalPrice, 2);
+            testSauces.customizeSauce(originalPrice, 2);
         }
     }
 
@@ -134,14 +145,14 @@ public class PizzaTest {
     public void testPizzaWithNullToppings() {
         // Test behavior when null is passed for toppings.
         Crust testCrust = Crust.THIN;
-        Sauce testSauce = Sauce.TRADITIONAL;
-        Pizza testPizza = new Pizza(testCrust, testSauce, null);
+        Sauce testSauces = Sauce.TRADITIONAL;
+        Pizza testPizza = new Pizza(testCrust, testSauces, null);
 
         // Expected display: should only include crust and sauce.
         StringBuilder expectedDisplay = new StringBuilder();
         expectedDisplay.append("---------- Pizza ----------\n");
         expectedDisplay.append(testCrust.display()).append("\n");
-        expectedDisplay.append(testSauce.display()).append("\n");
+        expectedDisplay.append(testSauces.display()).append("\n");
         assertEquals(expectedDisplay.toString(), testPizza.display(), "Pizza display should handle null toppings gracefully");
 
         // getPrice() should throw a NullPointerException since toppings is null.
@@ -151,14 +162,14 @@ public class PizzaTest {
     @Test
     public void testPizzaSortedComponents() {
         // Create a Pizza with components that are not in sorted order.
-        Crust testCrust = Crust.DEEP_DISH; // Price: 7.00
-        Sauce testSauce = Sauce.ALFREDO;    // Price: 3.75
+        Crust testCrust = Crust.THICK;      // Price: 7.00
+        Sauce testSauces = Sauce.ALFREDO;    // Price: 3.75
         ArrayList<Topping> toppings = new ArrayList<>();
         toppings.add(Topping.BACON);         // Price: 3.50
         toppings.add(Topping.PEPPERONI);     // Price: 1.50
         toppings.add(Topping.TOMATO);        // Price: 1.50
 
-        Pizza testPizza = new Pizza(testCrust, testSauce, toppings);
+        Pizza testPizza = new Pizza(testCrust, testSauces, toppings);
 
         // Use the sorting method provided in Pizza.
         ArrayList<Priceable> sortedComponents = testPizza.getSortedComponents();

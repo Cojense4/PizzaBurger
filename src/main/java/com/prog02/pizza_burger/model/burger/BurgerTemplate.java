@@ -8,7 +8,7 @@ import java.util.List;
 
 public enum BurgerTemplate implements MenuItem {
     CHZ_BURG(
-            "Cheese Burger",
+            "Cheeseburger",
             Bun.SESAME,
             new ArrayList<>(List.of(Patty.BEEF)),
             new ArrayList<>(Arrays.asList(Cheese.GOUDA, Cheese.AMERICAN)),
@@ -22,10 +22,10 @@ public enum BurgerTemplate implements MenuItem {
             new ArrayList<>(Arrays.asList(Garnish.LETTUCE, Garnish.TOMATO, Garnish.PICKLES, Garnish.ONION))
     ),
     BIG_BURG(
-            "Big Burger",
+            "King Burger",
             Bun.BRIOCHE,
             new ArrayList<>(Arrays.asList(Patty.BEEF, Patty.BEEF)),
-            new ArrayList<>(Arrays.asList(Cheese.AMERICAN, Cheese.GOUDA, Cheese.WHITE_AMERICAN, Cheese.AMERICAN)),
+            new ArrayList<>(Arrays.asList(Cheese.AMERICAN, Cheese.GOUDA, Cheese.CHEDDAR, Cheese.AMERICAN)),
             new ArrayList<>(Arrays.asList(Garnish.LETTUCE, Garnish.TOMATO, Garnish.PICKLES, Garnish.ONION))
     );
     // Add more templates as needed
@@ -48,22 +48,17 @@ public enum BurgerTemplate implements MenuItem {
      * Returns a new Burger instance based on the template.
      */
     public Burger toBurger(String burgerName) {
-        BurgerTemplate burgerTemplate = MenuItem.fromItemName(BurgerTemplate.class, burgerName);
-        Burger templateBurger = new Burger(
+        BurgerTemplate burgTemplate = MenuItem.fromItemName(BurgerTemplate.class, burgerName);
+        Burger newBurg = new Burger(
                 bun,
-                new ArrayList<>(burgerTemplate.patties),
-                new ArrayList<>(burgerTemplate.cheeses),
-                new ArrayList<>(burgerTemplate.garnishes)
+                new ArrayList<>(burgTemplate.patties),
+                new ArrayList<>(burgTemplate.cheeses),
+                new ArrayList<>(burgTemplate.garnishes)
         );
-        templateBurger.setItemName(itemName);
-        return templateBurger;
+        newBurg.setItemName(itemName);
+        return newBurg;
     }
 
-    /**
-     * Displays the Burger build as a printed receipt.
-     */
-    @Override
-    public String display() {return "";}
 
     @Override
     public double getPrice() {
@@ -85,11 +80,9 @@ public enum BurgerTemplate implements MenuItem {
     public String getName() {
         return itemName;
     }
-
     public Bun getBun() {
         return bun;
     }
-
     public ArrayList<Patty> getPatties() {
         return patties;
     }
