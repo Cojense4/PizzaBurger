@@ -4,10 +4,11 @@ import com.prog02.pizza_burger.model.burger.*;
 import com.prog02.pizza_burger.model.common.MenuItem;
 import com.prog02.pizza_burger.model.user.CartManager;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
 import java.util.Map;
@@ -16,10 +17,14 @@ import javafx.fxml.FXML;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import static com.prog02.pizza_burger.App.*;
 
 public class BurgerBuilderController implements Initializable {
+    @FXML
+    private VBox shopCartPaneContainer;
     // templates
     @FXML
     JFXComboBox<String> templateCombo;
@@ -28,18 +33,20 @@ public class BurgerBuilderController implements Initializable {
     JFXComboBox<String> bunCombo;
     @FXML
     JFXCheckBox toastedCheck;
-
-    // patties
+    // Patties
     @FXML
-    JFXComboBox<String> pattyTypeCombo, pattySeasonCombo, pattyAmtCombo;
+    HBox patBox1, patBox2, patBox3, patBox4;
     @FXML
-    JFXSlider cookSlider;
-
-    //cheese
+    JFXComboBox<String> pattyCountCombo, patTypeCombo1, patSeasonCombo1, patTypeCombo2, patSeasonCombo2, patTypeCombo3, patSeasonCombo3, patTypeCombo4, patSeasonCombo4;
     @FXML
-    JFXComboBox<String> chzTypeCombo, chzAmtCombo;
+    JFXSlider patCookSlide1, patCookSlide2, patCookSlide3, patCookSlide4;
+    //Cheese
     @FXML
-    JFXCheckBox smokedCheck, agedCheck;
+    HBox chzBox1, chzBox2, chzBox3, chzBox4;
+    @FXML
+    JFXComboBox<String> chzTypeCombo1, chzTypeCombo2, chzTypeCombo3, chzTypeCombo4;
+    @FXML
+    JFXCheckBox chzSmokeChk1, chzAgeChk1, chzDubChk1, chzSmokeChk2, chzAgeChk2, chzDubChk2, chzSmokeChk3, chzAgeChk3, chzDubChk3, chzSmokeChk4, chzAgeChk4, chzDubChk4;
     // Garnishes
     @FXML
     JFXCheckBox lettuceChk, avacadoChk, onionChk, tomatoChk, pickleChk, mushroomChk, baconChk, cookOnionChk;
@@ -50,34 +57,37 @@ public class BurgerBuilderController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        for (BurgerTemplate burgTemp : BurgerTemplate.values()) {
-            templateCombo.getItems().add(burgTemp.getName());
+        for (BurgerTemplate templates : BurgerTemplate.values()) {
+            templateCombo.getItems().add(templates.getName());
         }
-        // bun init
+        // Buns
         for (Bun bun : Bun.values()) {
             bunCombo.getItems().add(bun.getName());
         }
-        // patty init
-
+        // Patty init
+        pattyCountCombo.setValue("1");
         for (Patty patty : Patty.values()) {
-            pattyTypeCombo.getItems().add(patty.getName());
+            patTypeCombo1.getItems().add(patty.getName());
+            patTypeCombo2.getItems().add(patty.getName());
+            patTypeCombo3.getItems().add(patty.getName());
+            patTypeCombo4.getItems().add(patty.getName());
         }
 
-        for (int x = 1; x < 5; x++) {
-            String season = exPatty.getSeasoning(x);
-            seasoningMap = new HashMap<>();
-            seasoningMap.put(x, season);
-            pattySeasonCombo.getItems().add(season);
+        for (int x = 0; x < 4; x++) {
+            seasoningMap = exPatty.getSeasoningMap();
+            patSeasonCombo1.getItems().add(seasoningMap.get(x));
+            patSeasonCombo2.getItems().add(seasoningMap.get(x));
+            patSeasonCombo3.getItems().add(seasoningMap.get(x));
+            patSeasonCombo4.getItems().add(seasoningMap.get(x));
+            pattyCountCombo.getItems().add(String.valueOf(x+1));
         }
-        for (int i = 1; i < 5; i++) {
-            pattyAmtCombo.getItems().add(i + "x");
-        }
-        // cheese init
+
+        // Cheese init
         for (Cheese cheese : Cheese.values()) {
-            chzTypeCombo.getItems().add(cheese.getName());
-        }
-        for (int i = 1; i < 3; i++) {
-            chzAmtCombo.getItems().add(i + "x");
+            chzTypeCombo1.getItems().add(cheese.getName());
+            chzTypeCombo2.getItems().add(cheese.getName());
+            chzTypeCombo3.getItems().add(cheese.getName());
+            chzTypeCombo4.getItems().add(cheese.getName());
         }
     }
 
@@ -85,175 +95,236 @@ public class BurgerBuilderController implements Initializable {
     protected void handleUseTemplate() {
         BurgerTemplate fromTemplate = MenuItem.fromItemName(BurgerTemplate.class, templateCombo.getValue());
         if (fromTemplate == null) return;
-        // 1. Set bun selection
-        bunCombo.setValue(fromTemplate.getBun().getName());
 
-        // 2. Set patty count (number of patties) and update patty/cheese sections visibility
-        int pattyCount = fromTemplate.getPatties().size();
-        pattyAmtCombo.setValue(String.format("%dx",pattyCount));
-        // If pattyCountCombo onAction is not automatically updating the UI, call update method manually:
-        updatePattyAndCheeseSections(pattyCount);
+        // 1. Set bun selections
+        Bun tBun = fromTemplate.getBun();
+        bunCombo.setValue(tBun.getName());
+        toastedCheck.setSelected(tBun.isToasted());
 
-        // 3. Set patty details for each patty slot
-        List<Patty> templatePatties = fromTemplate.getPatties();
-        if (pattyCount >= 1) {
-            Patty p1 = templatePatties.getFirst();
-            pattyTypeCombo.setValue(p1.getName());
-            pattySeasonCombo.setValue(p1.getSeasoning());
-            // Set cook level slider - assuming slider values map to CookLevel ordinal
-            cookSlider.setValue(p1.getCookInt());
+        // 2. Set patty details for each patty slot
+        ArrayList<Patty> tPatties = fromTemplate.getPatties();
+        pattyCountCombo.setValue(String.valueOf(tPatties.size()));
+        if (!tPatties.isEmpty()) {
+            Patty p1 = tPatties.getFirst();
+            patTypeCombo1.setValue(p1.getName());
+            patSeasonCombo1.setValue(p1.getSeasoning());
+            patCookSlide1.setValue(p1.getCookInt());
+
+            if (tPatties.size() >= 2) {
+                Patty p2 = tPatties.get(1);
+                patTypeCombo2.setValue(p2.getName());
+                patSeasonCombo2.setValue(p2.getSeasoning());
+                patCookSlide2.setValue(p2.getCookInt());
+            }
+            if (tPatties.size() >= 3) {
+                Patty p3 = tPatties.get(2);
+                patTypeCombo3.setValue(p3.getName());
+                patSeasonCombo3.setValue(p3.getSeasoning());
+                patCookSlide3.setValue(p3.getCookInt());
+            }
+            if (tPatties.size() >= 4) {
+                Patty p4 = tPatties.get(3);
+                patTypeCombo4.setValue(p4.getName());
+                patSeasonCombo4.setValue(p4.getSeasoning());
+                patCookSlide4.setValue(p4.getCookInt());
+            }
         }
-//        if (pattyCount >= 2) {
-//            Patty p2 = templatePatties.get(1);
-//            patty2Type.setValue(p2.getType());
-//            patty2Seasoning.setValue(p2.getSeasoning());
-//            patty2Cook.setValue(p2.getCookLevel().ordinal());
-//        }
-//        if (pattyCount >= 3) {
-//            Patty p3 = templatePatties.get(2);
-//            patty3Type.setValue(p3.getType());
-//            patty3Seasoning.setValue(p3.getSeasoning());
-//            patty3Cook.setValue(p3.getCookLevel().ordinal());
-//        }
-//        if (pattyCount >= 4) {
-//            Patty p4 = templatePatties.get(3);
-//            patty4Type.setValue(p4.getType());
-//            patty4Seasoning.setValue(p4.getSeasoning());
-//            patty4Cook.setValue(p4.getCookLevel().ordinal());
-//        }
-        // 4. Set cheese details for each cheese slot (assuming equal number as patties)
-        List<Cheese> templateCheese = fromTemplate.getCheeses();
-        if (!templateCheese.isEmpty()) {
-            // e.g., if pattyCount is 1, we expect one cheese slice in list, etc.
 
-            Cheese c1 = templateCheese.getFirst();
-            chzTypeCombo.setValue(c1.getName());
-            smokedCheck.setSelected(c1.isSmoked());
-            agedCheck.setSelected(c1.isAged());
-            chzAmtCombo.setValue("1x");
-//            if (templateCheese.size() >= 2) {
-//                Cheese c2 = templateCheese.get(1);
-//                cheese2Type.setValue(c2.getType());
-//                cheese2Smoked.setSelected(c2.isSmoked());
-//                cheese2Aged.setSelected(c2.isAged());
-//            }
-//            if (templateCheese.size() >= 3) {
-//                Cheese c3 = templateCheese.get(2);
-//                cheese3Type.setValue(c3.getType());
-//                cheese3Smoked.setSelected(c3.isSmoked());
-//                cheese3Aged.setSelected(c3.isAged());
-//            }
-//            if (templateCheese.size() >= 4) {
-//                Cheese c4 = templateCheese.get(3);
-//                cheese4Type.setValue(c4.getType());
-//                cheese4Smoked.setSelected(c4.isSmoked());
-//                cheese4Aged.setSelected(c4.isAged());
-//            }
+        // 3. Set cheese details for each cheese slot
+        ArrayList<Cheese> tCheeses = fromTemplate.getCheeses();
+        if (!tCheeses.isEmpty()) {
+            Cheese chz1 = tCheeses.getFirst();
+            chzTypeCombo1.setValue(chz1.getName());
+            chzSmokeChk1.setSelected(chz1.isSmoked());
+            chzAgeChk1.setSelected(chz1.isAged());
 
-            // 5. Set garnish checkboxes (check those present in template, uncheck others)
-            List<Garnish> garnList = fromTemplate.getGarnishes();
-            lettuceChk.setSelected(garnList.contains(Garnish.LETTUCE));
-            tomatoChk.setSelected(garnList.contains(Garnish.TOMATO));
-            onionChk.setSelected(garnList.contains(Garnish.ONION));
-            pickleChk.setSelected(garnList.contains(Garnish.PICKLES));
-            avacadoChk.setSelected(garnList.contains(Garnish.AVACADO));
-            cookOnionChk.setSelected(garnList.contains(Garnish.COOKED_ONION));
-            baconChk.setSelected(garnList.contains(Garnish.BACON));
-            mushroomChk.setSelected(garnList.contains(Garnish.MUSHROOMS));
+            if (tCheeses.size() >= 2) {
+                Cheese chz2 = tCheeses.get(1);
+                chzTypeCombo2.setValue(chz2.getName());
+                chzSmokeChk2.setSelected(chz2.isSmoked());
+                chzAgeChk2.setSelected(chz2.isAged());
+                chzBox2.setVisible(true);
+            }
+            if (tCheeses.size() >= 3) {
+                Cheese chz3 = tCheeses.get(2);
+                chzTypeCombo3.setValue(chz3.getName());
+                chzSmokeChk3.setSelected(chz3.isSmoked());
+                chzAgeChk3.setSelected(chz3.isAged());
+                chzBox3.setVisible(true);
+            }
+            if (tCheeses.size() >= 4) {
+                Cheese chz4 = tCheeses.get(3);
+                chzTypeCombo4.setValue(chz4.getName());
+                chzSmokeChk4.setSelected(chz4.isSmoked());
+                chzAgeChk4.setSelected(chz4.isAged());
+                chzBox4.setVisible(true);
+            }
+            
+            // 4. Set garnish checkboxes
+            ArrayList<Garnish> tGarnishes = fromTemplate.getGarnishes();
+            lettuceChk.setSelected(tGarnishes.contains(Garnish.LETTUCE));
+            tomatoChk.setSelected(tGarnishes.contains(Garnish.TOMATO));
+            onionChk.setSelected(tGarnishes.contains(Garnish.ONION));
+            pickleChk.setSelected(tGarnishes.contains(Garnish.PICKLES));
+            avacadoChk.setSelected(tGarnishes.contains(Garnish.AVACADO));
+            cookOnionChk.setSelected(tGarnishes.contains(Garnish.COOKED_ONION));
+            baconChk.setSelected(tGarnishes.contains(Garnish.BACON));
+            mushroomChk.setSelected(tGarnishes.contains(Garnish.MUSHROOMS));
         }
     }
+    @FXML
+    protected void handlePatAmtChange(ActionEvent event) {
+        int patAmt = (pattyCountCombo.getValue() != null)
+                ? Integer.parseInt(pattyCountCombo.getValue().replaceAll("\\D",""))
+                : Integer.parseInt(pattyCountCombo.getValue());
+        if (patAmt < 1) patAmt = 1;
+        if (patAmt > 4) patAmt = 4;
 
-    // Helper to update visibility of patty/cheese input sections
-    private void updatePattyAndCheeseSections(int count) {
-        // Show/hide patty and cheese rows based on count (implementation shown later)
-        // ...
+        patBox1.setVisible(true);
+        patBox2.setVisible(patAmt >= 2);
+        patBox3.setVisible(patAmt >= 3);
+        patBox4.setVisible(patAmt == 4);
+
+        chzBox1.setVisible(true);
+        chzBox2.setVisible(patAmt >= 2);
+        chzBox3.setVisible(patAmt >= 3);
+        chzBox4.setVisible(patAmt == 4);
     }
-
     @FXML
     protected void handleAddToCart() throws IOException {
+        Burger newBurg = makeBurger();
+        cartManager.addItem(newBurg);
+        reloadShopCartPane();
+        App.setRoot("BurgerBuilder.fxml");
+    }
+    @FXML
+    protected void handlePayNow() throws IOException {
+        Burger newBurg = makeBurger();
+        cartManager.addItem(newBurg);
+        setRoot("Completed.fxml");
+    }
+    @FXML
+    protected void handleBackToMenu() throws IOException {
         Burger newBurg = makeBurger();
         cartManager.addItem(newBurg);
         setRoot("Main.fxml");
     }
 
-    @FXML
-    protected void handlePayNow() throws IOException {
-        Burger newBurg = makeBurger();
-        cartManager.addItem(newBurg);
-        setRoot("ShopCart.fxml");
-    }
-
+    // Creates a burger from on-screen elements
     private Burger makeBurger() {
+        // 1. Get bun and set if toasted
         Bun uBun = MenuItem.fromItemName(Bun.class, bunCombo.getValue());
-        ArrayList<Patty> uPatties = new ArrayList<>();
-        ArrayList<Cheese> uCheeses = new ArrayList<>();
-        ArrayList<Garnish> uGarnish = new ArrayList<>();
+        uBun.setToasted(toastedCheck.isSelected());
 
-        // Bun Process
-        uBun.customize(toastedCheck.isSelected());
-        // Patty Process
-        Patty pat = MenuItem.fromItemName(Patty.class, pattyTypeCombo.getValue());
-        // Provide a default value if the combo box value is null or empty
-        String pattyAmtValue = pattyAmtCombo.getValue();
-        int patAmt = 1; // default value
-        if (pattyAmtValue != null && !pattyAmtValue.isEmpty()) {
-            try {
-                patAmt = Integer.parseInt(pattyAmtValue.substring(0, 1));
-            } catch (NumberFormatException e) {
-                // Log error or set a default value if the format is unexpected
-            }
+        // 2. Set patty details for each patty slot
+        ArrayList<Patty> uPatties = new ArrayList<>();
+        if (Integer.parseInt(pattyCountCombo.getValue()) >= 1) {
+            Patty pat1 = MenuItem.fromItemName(Patty.class, patTypeCombo1.getValue());
+            pat1.setSeasoning(keyFromVal(seasoningMap, patSeasonCombo1.getValue()));
+            pat1.setCookLevel((int) patCookSlide1.getValue());
+            uPatties.add(pat1);
         }
-        int uCookLevel = (int) cookSlider.getValue();
-        int uPattySeason = keyFromVal(seasoningMap, pattySeasonCombo.getValue());
-        pat.customizePatty(uCookLevel, uPattySeason);
-        for (int i = 0; i < patAmt; i++) {
-            uPatties.add(pat);
+        if (Integer.parseInt(pattyCountCombo.getValue()) >= 2) {
+            Patty pat2 = MenuItem.fromItemName(Patty.class, patTypeCombo2.getValue());
+            pat2.setSeasoning(keyFromVal(seasoningMap, patSeasonCombo2.getValue()));
+            pat2.setCookLevel((int) patCookSlide2.getValue());
+            uPatties.add(pat2);
         }
-        // Cheese Process
-        Cheese chz = MenuItem.fromItemName(Cheese.class, chzTypeCombo.getValue());
-        boolean smoked = smokedCheck.isSelected();
-        boolean aged = agedCheck.isSelected();
-        chz.customizeCheese(smoked, aged);
-        String chzAmtVal = chzAmtCombo.getValue();
-        int chzAmt = 1;
-        if (chzAmtVal != null && !chzAmtVal.isEmpty()) {
-            try {
-                chzAmt = Integer.parseInt(chzAmtVal.substring(0, 1));
-            } catch (NumberFormatException e) {
-                // Log error or set a default value if the format is unexpected
-            }
+        if (Integer.parseInt(pattyCountCombo.getValue()) >= 3) {
+            Patty pat3 = MenuItem.fromItemName(Patty.class, patTypeCombo3.getValue());
+            pat3.setSeasoning(keyFromVal(seasoningMap, patSeasonCombo3.getValue()));
+            pat3.setCookLevel((int) patCookSlide3.getValue());
+            uPatties.add(pat3);
         }
-        for (int i = 0; i < chzAmt * patAmt; i++) {
-            uCheeses.add(chz);
+        if (Integer.parseInt(pattyCountCombo.getValue()) >= 4) {
+            Patty pat4 = MenuItem.fromItemName(Patty.class, patTypeCombo4.getValue());
+            pat4.setSeasoning(keyFromVal(seasoningMap, patSeasonCombo4.getValue()));
+            pat4.setCookLevel((int) patCookSlide4.getValue());
+            uPatties.add(pat4);
         }
-        // Garnish Process
+        
+        // 3. Set cheese details for each cheese slot
+        ArrayList<Cheese> uCheeses = new ArrayList<>();
+        if (Integer.parseInt(pattyCountCombo.getValue()) >= 1) {
+            Cheese chz1 = MenuItem.fromItemName(Cheese.class, chzTypeCombo1.getValue());
+            chz1.setIsSmoked(chzSmokeChk1.isSelected());
+            chz1.setIsAged(chzAgeChk1.isSelected());
+            uCheeses.add(chz1);
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) >= 2) {
+            Cheese chz2 = MenuItem.fromItemName(Cheese.class, chzTypeCombo2.getValue());
+            chz2.setIsSmoked(chzSmokeChk2.isSelected());
+            chz2.setIsAged(chzAgeChk2.isSelected());
+            uCheeses.add(chz2);
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) >= 3) {
+            Cheese chz3 = MenuItem.fromItemName(Cheese.class, chzTypeCombo3.getValue());
+            chz3.setIsSmoked(chzSmokeChk3.isSelected());
+            chz3.setIsAged(chzAgeChk3.isSelected());
+            uCheeses.add(chz3);
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) >= 4) {
+            Cheese chz4 = MenuItem.fromItemName(Cheese.class, chzTypeCombo4.getValue());
+            chz4.setIsSmoked(chzSmokeChk4.isSelected());
+            chz4.setIsAged(chzAgeChk4.isSelected());
+            uCheeses.add(chz4);
+        }
+
+        // 4. Set garnish checkboxes
+        ArrayList<Garnish> uGarnishes = new ArrayList<>();
         if (tomatoChk.isSelected()) {
-            uGarnish.add(Garnish.TOMATO);
+            uGarnishes.add(Garnish.TOMATO);
         }
         if (lettuceChk.isSelected()) {
-            uGarnish.add(Garnish.LETTUCE);
+            uGarnishes.add(Garnish.LETTUCE);
         }
         if (avacadoChk.isSelected()) {
-            uGarnish.add(Garnish.AVACADO);
+            uGarnishes.add(Garnish.AVACADO);
         }
         if (pickleChk.isSelected()) {
-            uGarnish.add(Garnish.PICKLES);
+            uGarnishes.add(Garnish.PICKLES);
         }
         if (onionChk.isSelected()) {
-            uGarnish.add(Garnish.ONION);
-        }
-        if (mushroomChk.isSelected()) {
-            uGarnish.add(Garnish.MUSHROOMS);
-        }
-        if (baconChk.isSelected()) {
-            uGarnish.add(Garnish.BACON);
+            uGarnishes.add(Garnish.ONION);
         }
         if (cookOnionChk.isSelected()) {
-            uGarnish.add(Garnish.COOKED_ONION);
+            uGarnishes.add(Garnish.COOKED_ONION);
         }
-        return new Burger(uBun, uPatties, uCheeses, uGarnish);
+        if (baconChk.isSelected()) {
+            uGarnishes.add(Garnish.BACON);
+        }
+        if (mushroomChk.isSelected()) {
+            uGarnishes.add(Garnish.MUSHROOMS);
+        }
+
+        // 5. Return the new burger (if not template, then custom burger
+        Burger uBurg = new Burger(uBun, uPatties, uCheeses, uGarnishes);
+        if (templateCombo.getValue() == null) {
+            uBurg.setItemName("Custom Burger");
+        } else {
+            uBurg.setItemName(templateCombo.getValue());
+        }
+        return uBurg;
     }
 
+    private void reloadShopCartPane() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ShopCartPane.fxml"));
+            VBox newShopCartPane = loader.load();
+            // Get the parent container (e.g., an HBox)
+            HBox parent = (HBox) shopCartPaneContainer.getParent();
+            // Find the index of the old shop cart pane
+            int index = parent.getChildren().indexOf(shopCartPaneContainer);
+            // Replace the old node with the new one
+            parent.getChildren().set(index, newShopCartPane);
+            // Update the reference if needed
+            shopCartPaneContainer = newShopCartPane;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Utility method that probably should be replaced as only one thing uses it
     private int keyFromVal(Map < Integer, String > uMap, String sVal){
         for (Map.Entry<Integer, String> entry : uMap.entrySet()) {
             if (entry.getValue().equals(sVal)) {

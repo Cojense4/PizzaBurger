@@ -32,11 +32,11 @@ public enum BurgerTemplate implements MenuItem {
 
     private final String itemName;
     private final Bun bun;
-    private final List<Patty> patties;
-    private final List<Cheese> cheeses;
-    private final List<Garnish> garnishes;
+    private final ArrayList<Patty> patties;
+    private final ArrayList<Cheese> cheeses;
+    private final ArrayList<Garnish> garnishes;
 
-    BurgerTemplate(String itemName, Bun bun, List<Patty> patties, List<Cheese> cheeses, List<Garnish> garnishes) {
+    BurgerTemplate(String itemName, Bun bun, ArrayList<Patty> patties, ArrayList<Cheese> cheeses, ArrayList<Garnish> garnishes) {
         this.itemName = itemName;
         this.bun = bun;
         this.patties = patties;
@@ -47,16 +47,16 @@ public enum BurgerTemplate implements MenuItem {
     /**
      * Returns a new Burger instance based on the template.
      */
-    public Burger getBurger(String burgerName) {
+    public Burger toBurger(String burgerName) {
         BurgerTemplate burgerTemplate = MenuItem.fromItemName(BurgerTemplate.class, burgerName);
-        Burger burg = new Burger(
+        Burger templateBurger = new Burger(
                 bun,
                 new ArrayList<>(burgerTemplate.patties),
                 new ArrayList<>(burgerTemplate.cheeses),
                 new ArrayList<>(burgerTemplate.garnishes)
         );
-        burg.customize(burgerTemplate.itemName);
-        return burg;
+        templateBurger.setItemName(itemName);
+        return templateBurger;
     }
 
     /**
@@ -87,16 +87,16 @@ public enum BurgerTemplate implements MenuItem {
     }
 
     public Bun getBun() {
-        return this.bun;
+        return bun;
     }
 
-    public List<Patty> getPatties() {
+    public ArrayList<Patty> getPatties() {
         return patties;
     }
-    public List<Cheese> getCheeses() {
+    public ArrayList<Cheese> getCheeses() {
         return cheeses;
     }
-    public List<Garnish> getGarnishes() {
+    public ArrayList<Garnish> getGarnishes() {
         return garnishes;
     }
 }
