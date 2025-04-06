@@ -19,7 +19,7 @@ This project is a GUI-based pizza and burger ordering system built with JavaFX a
     - User and cart management: [`com.prog02.pizza_burger.model.user`](src/main/java/com/prog02/pizza_burger/model/user)
 - **src/main/resources**: Contains the FXML files and other resources.
   - Main views: [`Main.fxml`](src/main/resources/com/prog02/pizza_burger/Main.fxml), [`PizzaBuilder.fxml`](src/main/resources/com/prog02/pizza_burger/PizzaBuilder.fxml), [`BurgerBuilder.fxml`](src/main/resources/com/prog02/pizza_burger/BurgerBuilder.fxml)
-  - Other views: [`ShopCart.fxml`](src/main/resources/com/prog02/pizza_burger/ShopCart.fxml), [`Completed.fxml`](src/main/resources/com/prog02/pizza_burger/Completed.fxml)
+  - Other views: [`Completed.fxml`](src/main/resources/com/prog02/pizza_burger/Completed.fxml)
 - **src/test**: Contains unit tests for the pizza and burger components.
 
 ## Changes from original code (Ex 07)

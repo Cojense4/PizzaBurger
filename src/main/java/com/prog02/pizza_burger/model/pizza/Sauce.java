@@ -14,7 +14,7 @@ public enum Sauce implements MenuItem {
     private String itemName;
     private double price;
     private int amount;
-    private Map<Integer, String> SauceMap = Map.of(
+    private final Map<Integer, String> SauceMap = Map.of(
             0, "No",
             1, "Light",
             2, "Regular",

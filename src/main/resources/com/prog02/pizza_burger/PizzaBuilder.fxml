@@ -7,79 +7,182 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="600.0" minHeight="700.0" minWidth="400.0" scaleShape="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog02.pizza_burger.PizzaBuilderController">
-   <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="100.0" AnchorPane.leftAnchor="10.0"
-               AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-      <Label alignment="CENTER" layoutX="15.0" layoutY="15.0" minHeight="25.0" minWidth="30.0" prefHeight="25.0"
-             prefWidth="131.0" text="Pick your Crust" textAlignment="CENTER" AnchorPane.bottomAnchor="60.0"
-             AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
-         <font>
-            <Font size="18.0"/>
-         </font>
-      </Label>
-      <Separator layoutY="30.0" minHeight="10.0" minWidth="390.0" valignment="BOTTOM" AnchorPane.leftAnchor="10.0"
-                 AnchorPane.rightAnchor="10.0"/>
-      <JFXComboBox fx:id="crustCombo" layoutX="29.0" layoutY="50.0" minHeight="30.0" minWidth="150.0"
-                   promptText="Select Crust" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0"/>
-   </AnchorPane>
-   <AnchorPane layoutX="10.0" layoutY="129.0" minHeight="100.0" minWidth="400.0" prefHeight="100.0" prefWidth="410.0"
-               AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-      <JFXComboBox fx:id="sauceCombo" layoutX="30.0" layoutY="50.0" minHeight="30.0" minWidth="150.0"
-                   promptText="Select Sauce" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0"/>
-      <JFXComboBox fx:id="sauceAmtCombo" layoutX="210.0" layoutY="50.0" minHeight="30.0" minWidth="150.0"
-                   promptText="Sauce Amt" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="30.0"
-                   AnchorPane.topAnchor="50.0"/>
-      <Label alignment="CENTER" layoutX="15.0" layoutY="15.0" minHeight="25.0" minWidth="110.0" prefHeight="25.0"
-             prefWidth="150.0" text="Pick your Sauce" textAlignment="CENTER" AnchorPane.leftAnchor="15.0"
-             AnchorPane.topAnchor="15.0">
-         <font>
-            <Font size="18.0"/>
-         </font>
-      </Label>
-      <Separator layoutY="30.0" minHeight="10.0" minWidth="390.0" valignment="BOTTOM" AnchorPane.leftAnchor="10.0"
-                 AnchorPane.rightAnchor="10.0"/>
-   </AnchorPane>
-   <AnchorPane layoutX="10.0" layoutY="255.0" minHeight="135.0" prefHeight="242.0" prefWidth="410.0"
-               AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-      <JFXComboBox fx:id="chzCombo" layoutX="30.0" layoutY="50.0" minHeight="30.0" minWidth="150.0"
-                   promptText="Select Cheese" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0"/>
-      <JFXCheckBox fx:id="meatDoubleChk" layoutX="230.0" layoutY="95.0" minHeight="20.0" minWidth="100.0"
-                   mnemonicParsing="false" text="Double it" AnchorPane.leftAnchor="230.0"/>
-      <JFXCheckBox fx:id="chzDoubleChk" layoutX="230.0" layoutY="50.0" minHeight="20.0" minWidth="100.0"
-                   mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" text="Double it"
-                   AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="30.0"/>
-      <Label alignment="CENTER" layoutX="15.0" layoutY="15.0" minHeight="25.0" minWidth="30.0" prefHeight="25.0"
-             prefWidth="189.0" text="Select your Toppings" textAlignment="CENTER" AnchorPane.leftAnchor="15.0"
-             AnchorPane.topAnchor="15.0">
-         <font>
-            <Font size="18.0"/>
-         </font>
-      </Label>
-      <Separator layoutY="34.0" minHeight="10.0" minWidth="390.0" valignment="BOTTOM" AnchorPane.leftAnchor="10.0"
-                 AnchorPane.rightAnchor="10.0"/>
-      <JFXComboBox fx:id="meatCombo" layoutX="30.0" layoutY="95.0" minHeight="30.0" minWidth="150.0"
-                   promptText="Select Meat"/>
-      <JFXComboBox fx:id="vegCombo" layoutX="30.0" layoutY="140.0" minHeight="30.0" minWidth="150.0"
-                   promptText="Select Veggie"/>
-      <JFXCheckBox fx:id="vegDoubleChk" layoutX="230.0" layoutY="140.0" minHeight="20.0" minWidth="100.0"
-                   mnemonicParsing="false" text="Double it"/>
-      <JFXComboBox fx:id="extraCombo" layoutX="30.0" layoutY="185.0" minHeight="30.0" minWidth="150.0"
-                   promptText="Extra Topping"/>
-      <JFXCheckBox fx:id="extraDoubleChk" layoutX="230.0" layoutY="185.0" minHeight="20.0" minWidth="100.0"
-                   mnemonicParsing="false" text="Double it"/>
-   </AnchorPane>
-   <Separator layoutY="114.0" minHeight="15.0" minWidth="390.0" prefHeight="15.0" prefWidth="390.0" valignment="BOTTOM" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-      <padding>
-         <Insets bottom="5.0" />
-      </padding></Separator>
-   <Separator layoutY="490.0" prefHeight="15.0" prefWidth="390.0" style="-fx-border-width: 20px;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-   <Separator layoutY="229.0" minHeight="15.0" minWidth="390.0" prefHeight="15.0" prefWidth="390.0" valignment="BOTTOM" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-      <padding>
-         <Insets bottom="5.0" />
-      </padding>
-   </Separator>
-   <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="625.0" minHeight="30.0" minWidth="150.0" onAction="#handleAddToCart" prefHeight="68.0" prefWidth="150.0" ripplerFill="BLACK" text="Add/Create New" />
-   <JFXButton buttonType="RAISED" layoutX="32.0" layoutY="606.0" minHeight="68.0" minWidth="170.0" onAction="#handlePayNow" prefHeight="68.0" prefWidth="170.0" ripplerFill="BLACK" text="Add/Check Out" />
+<AnchorPane maxWidth="1000.0" minHeight="700.0" minWidth="800.0" scaleShape="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog02.pizza_burger.PizzaBuilderController">
+   <HBox layoutX="10.0" layoutY="10.0" prefHeight="571.0" prefWidth="984.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="10.0">
+      <VBox fillWidth="false" minWidth="225.0" prefHeight="670.0" prefWidth="374.0">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin>
+         <JFXComboBox fx:id="templateCombo" minHeight="30.0" minWidth="185.0" onAction="#handleUseTemplate" promptText="Pick a Pizza Template:">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+         </JFXComboBox>
+         <VBox prefHeight="138.0" prefWidth="355.0" spacing="10.0" VBox.vgrow="NEVER">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <Label alignment="CENTER" minHeight="25.0" minWidth="30.0" text="Crust" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <JFXComboBox fx:id="crustCombo" minHeight="30.0" minWidth="150.0" promptText="Select Crust" />
+            <JFXComboBox fx:id="crustSizeCombo" minHeight="30.0" minWidth="95.0" prefHeight="30.0" prefWidth="95.0" promptText="Select Size" />
+         </VBox>
+         <VBox fillWidth="false" prefHeight="290.0" prefWidth="343.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <Label alignment="CENTER" minHeight="25.0" minWidth="30.0" text="Sauce(s)" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Separator minHeight="15.0" prefHeight="15.0" prefWidth="334.0" valignment="TOP" VBox.vgrow="ALWAYS" />
+            <JFXComboBox fx:id="sauceCountCombo" minHeight="30.0" minWidth="97.0" onAction="#handleAmtChg" prefHeight="30.0" prefWidth="97.0" promptText="How Many?" />
+            <VBox fx:id="sauceBox1" prefHeight="91.0" prefWidth="189.0" spacing="10.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <JFXComboBox fx:id="sauceCombo1" minHeight="30.0" minWidth="150.0" promptText="Select Sauce" />
+               <JFXComboBox fx:id="sauceAmtCombo1" minHeight="30.0" minWidth="94.0" prefHeight="30.0" prefWidth="94.0" promptText="Sauce Amt" />
+            </VBox>
+            <VBox fx:id="sauceBox2" spacing="10.0" visible="false">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <JFXComboBox fx:id="sauceCombo2" minHeight="30.0" minWidth="150.0" promptText="Select Sauce" />
+               <JFXComboBox fx:id="sauceAmtCombo2" minHeight="30.0" minWidth="90.0" prefHeight="30.0" prefWidth="90.0" promptText="Sauce Amt" />
+            </VBox>
+         </VBox>
+         <HBox alignment="CENTER" spacing="10.0" VBox.vgrow="SOMETIMES">
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <JFXButton buttonType="RAISED" minHeight="30.0" minWidth="100.0" onAction="#handleAddToCart" prefWidth="100.0" ripplerFill="BLACK" text="Add to Cart" textAlignment="CENTER" />
+            <JFXButton buttonType="RAISED" minHeight="30.0" minWidth="100.0" onAction="#handlePayNow" prefWidth="100.0" ripplerFill="BLACK" text="Finalize Order" textAlignment="CENTER" />
+            <JFXButton buttonType="RAISED" minHeight="30.0" minWidth="100.0" onAction="#handleBackToMenu" prefWidth="100.0" ripplerFill="BLACK" text="Back to Menu" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+         </HBox>
+      </VBox>
+      <Separator orientation="VERTICAL" prefHeight="200.0" />
+      <VBox prefHeight="670.0" prefWidth="297.0" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin>
+         <VBox prefHeight="293.0" prefWidth="730.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" minHeight="25.0" minWidth="30.0" text="Toppings" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER_LEFT" minHeight="35.0" spacing="10.0">
+               <Label text="Cheeses">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <JFXComboBox fx:id="chzCountCombo" onAction="#handleAmtChg" prefHeight="26.0" prefWidth="101.0" promptText="Amt:" />
+            </HBox>
+            <!-- Patty 1 controls (visible by default) -->
+            <HBox fx:id="chzBox1" alignment="CENTER_LEFT" spacing="10" visible="false">
+               <Label minWidth="50.0" text="Chz 1:" />
+               <JFXComboBox fx:id="chzCombo1" promptText="Type" />
+               <JFXCheckBox fx:id="chzDubChk1" text="Double it?" />
+               <!-- e.g., JFXSlider with 0-4 corresponding to CookLevel enum indices -->
+            </HBox>
+            <HBox fx:id="chzBox2" alignment="CENTER_LEFT" spacing="10" visible="false">
+               <Label minWidth="50.0" text="Chz 2:" />
+               <JFXComboBox fx:id="chzCombo2" promptText="Type" />
+               <JFXCheckBox fx:id="chzDubChk2" text="Double it?" />
+            </HBox>
+            <Separator minHeight="15.0" prefWidth="200.0" valignment="TOP" />
+            <HBox alignment="CENTER_LEFT" minHeight="35.0" spacing="10.0">
+               <Label text="Meats">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <JFXComboBox fx:id="meatCountCombo" onAction="#handleAmtChg" prefHeight="26.0" prefWidth="101.0" promptText="Amt:" />
+            </HBox>
+            <HBox fx:id="meatBox1" alignment="CENTER_LEFT" spacing="10" visible="false">
+               <Label minWidth="50.0" text="Meat 1:" />
+               <JFXComboBox fx:id="meatCombo1" promptText="Type" />
+               <JFXCheckBox fx:id="meatDubChk1" text="Double it?" />
+            </HBox>
+            <HBox fx:id="meatBox2" alignment="CENTER_LEFT" spacing="10" visible="false">
+               <Label minWidth="50.0" text="Meat 2:" />
+               <JFXComboBox fx:id="meatCombo2" promptText="Type" />
+               <JFXCheckBox fx:id="meatDubChk2" text="Double it?" />
+            </HBox>
+            <Separator minHeight="15.0" prefWidth="200.0" valignment="TOP" />
+            <HBox alignment="CENTER_LEFT" minHeight="35.0" spacing="10.0">
+               <Label text="Veggies">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <JFXComboBox fx:id="vegCountCombo" onAction="#handleAmtChg" prefHeight="26.0" prefWidth="101.0" promptText="Amt:" />
+            </HBox>
+            <HBox fx:id="vegBox1" alignment="CENTER_LEFT" spacing="10" visible="false">
+               <Label minWidth="50.0" text="Veg 1:" />
+               <JFXComboBox fx:id="vegCombo1" promptText="Type" />
+               <JFXCheckBox fx:id="vegDubChk1" text="Double it?" />
+            </HBox>
+            <HBox fx:id="vegBox2" alignment="CENTER_LEFT" spacing="10" visible="false">
+               <Label minWidth="50.0" text="Veg 2:" />
+               <JFXComboBox fx:id="vegCombo2" promptText="Type" />
+               <JFXCheckBox fx:id="vegDubChk2" text="Double it?" />
+            </HBox>
+            <Separator minHeight="15.0" prefWidth="200.0" valignment="TOP" />
+            <HBox alignment="CENTER_LEFT" minHeight="35.0" spacing="10.0">
+               <Label text="Extras">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <JFXComboBox fx:id="extraCountCombo" onAction="#handleAmtChg" prefHeight="26.0" prefWidth="101.0" promptText="Amt:" />
+            </HBox>
+            <HBox fx:id="extraBox1" alignment="CENTER_LEFT" spacing="10" visible="false">
+               <Label minWidth="50.0" text="Ex 1:" />
+               <JFXComboBox fx:id="extraCombo1" promptText="Type" />
+               <JFXCheckBox fx:id="extraDubChk1" text="Double it?" />
+            </HBox>
+            <HBox fx:id="extraBox2" alignment="CENTER_LEFT" spacing="10" visible="false">
+               <Label minWidth="50.0" text="Ex 2:" />
+               <JFXComboBox fx:id="extraCombo2" promptText="Type" />
+               <JFXCheckBox fx:id="extraDubChk2" text="Double it?" />
+            </HBox>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+         </VBox>
+      </VBox>
+      <Separator orientation="VERTICAL" prefHeight="200.0" />
+      <fx:include fx:id="shopCartPaneContainer" source="ShopCartPane.fxml" />
+   </HBox>
 </AnchorPane>
