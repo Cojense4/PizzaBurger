@@ -64,7 +64,7 @@ public class BurgerBuilderController implements Initializable {
         for (Bun bun : Bun.values()) {
             bunCombo.getItems().add(bun.getName());
         }
-        // Patty init
+        // Patties
         pattyCountCombo.setValue("1");
         for (Patty patty : Patty.values()) {
             patTypeCombo1.getItems().add(patty.getName());
@@ -80,7 +80,7 @@ public class BurgerBuilderController implements Initializable {
             patSeasonCombo4.getItems().add(seasoningMap.get(x));
             pattyCountCombo.getItems().add(String.valueOf(x+1));
         }
-        // Cheese init
+        // Cheeses
         for (Cheese cheese : Cheese.values()) {
             chzTypeCombo1.getItems().add(cheese.getName());
             chzTypeCombo2.getItems().add(cheese.getName());

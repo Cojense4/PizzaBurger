@@ -54,4 +54,6 @@ public enum Crust implements MenuItem {
     public void setSize(int newSize) {
         this.size = newSize;
     }
+
+    public Map<Integer, String> getSizeMap() {return sizeMap;}
 }
