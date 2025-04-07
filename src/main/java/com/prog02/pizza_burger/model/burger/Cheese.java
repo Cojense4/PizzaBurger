@@ -3,13 +3,13 @@ import com.prog02.pizza_burger.model.common.MenuItem;
 
 public enum Cheese implements MenuItem {
     // Cheese
-    AMERICAN("American",  1.00, false, false),
-    WHITE_AMERICAN("Gouda", 1.75, false, false),
-    GOUDA("Gouda", 1.50, false, false),
-    PEPPERJACK("PepperJack",  2.00, false, false),
-    SWISS("Swiss", 1.50, false, false);
+    AMERICAN("American Cheese",  1.00, false, false),
+    CHEDDAR("Cheddar Cheese", 1.75, false, false),
+    GOUDA("Gouda Cheese", 1.50, false, false),
+    PEPPER_JACK("Pepper-jack Cheese",  2.00, false, false),
+    SWISS("Swiss Cheese", 1.50, false, false);
 
-    private final String itemName;
+    private String itemName;
     private double price;
     private boolean isSmoked;
     private boolean isAged;
@@ -22,16 +22,11 @@ public enum Cheese implements MenuItem {
         this.isAged = isAged;
     }
 
-    public void customizeCheese(boolean newIsSmoked, boolean newIsAged) {
-        this.isSmoked = newIsSmoked;
-        this.isAged = newIsAged;
+    public String display() {
+        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName;
     }
 
-    @Override
-    public String getName() {
-        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName + " Cheese";
-    }
-
+    // Getters and Setters
     @Override
     public double getPrice() {
         double extra = 0.0;
@@ -43,5 +38,27 @@ public enum Cheese implements MenuItem {
         }
         return this.price + extra;
     }
+    @Override
+    public String getName() {
+        return itemName;
+    }
+    public Boolean isSmoked() {
+        return this.isSmoked;
+    }
+    public Boolean isAged() {
+        return this.isAged;
+    }
 
+    public void setName(String newItemName) {
+        this.itemName = newItemName;
+    }
+    public void setPrice(double newPrice) {
+        this.price = newPrice;
+    }
+    public void setIsSmoked(boolean newIsSmoked) {
+        this.isSmoked = newIsSmoked;
+    }
+    public void setIsAged(boolean newIsAged) {
+        this.isAged = newIsAged;
+    }
 }

@@ -41,22 +41,23 @@ public class BurgerTest {
         garnishes.add(Garnish.PICKLES); // e.g., price: 0.25
 
         Burger testBurger = new Burger(testBun, patties, cheeses, garnishes);
+        testBurger.setItemName("Burger");
 
         StringBuilder expectedDisplay = new StringBuilder();
         expectedDisplay.append("---------- Burger ----------\n");
         expectedDisplay.append(testBun.display()).append("\n");
-        if (patties != null && !patties.isEmpty()) {
+        if (!patties.isEmpty()) {
             for (Patty patty : patties) {
                 expectedDisplay.append(patty.display()).append("\n");
             }
         }
-        if (cheeses != null && !cheeses.isEmpty()) {
+        if (!cheeses.isEmpty()) {
             for (Cheese cheese : cheeses) {
                 expectedDisplay.append(cheese.display()).append("\n");
             }
         }
-        if (garnishes != null && !garnishes.isEmpty()) {
-            expectedDisplay.append("Garnishes:");
+        if (!garnishes.isEmpty()) {
+            expectedDisplay.append("--- garnishes ---\n");
             for (Garnish garnish : garnishes) {
                 expectedDisplay.append(garnish.display()).append("\n");
             }
@@ -73,7 +74,7 @@ public class BurgerTest {
         ArrayList<Garnish> emptyGarnishes = new ArrayList<>();
 
         Burger testBurger = new Burger(testBun, emptyPatties, emptyCheeses, emptyGarnishes);
-
+        testBurger.setItemName("Burger");
         double expectedPrice = testBun.getPrice();
         assertEquals(expectedPrice, testBurger.getPrice(), 0.001, "Burger price with empty components should equal bun price");
 
@@ -90,30 +91,33 @@ public class BurgerTest {
         ArrayList<Patty> patties = new ArrayList<>();
         patties.add(Patty.WAGYU); // e.g., price: 10.00
         ArrayList<Cheese> cheeses = new ArrayList<>();
-        cheeses.add(Cheese.WHITE_AMERICAN); // e.g., price: 1.75 (default)
+        cheeses.add(Cheese.AMERICAN); // e.g., price: 1.75 (default)
         ArrayList<Garnish> garnishes = new ArrayList<>();
         garnishes.add(Garnish.ONION); // e.g., price: 0.25
 
         // Save original state of cheese.
-        boolean originalIsSmoked = false; // assumed default for WHITE_AMERICAN
+        boolean originalIsSmoked = false; // assumed default for AMERICAN
         boolean originalIsAged = false;    // assumed default
-        double originalCheesePrice = Cheese.WHITE_AMERICAN.getPrice();
+        double originalCheesePrice = Cheese.AMERICAN.getPrice();
 
         try {
             // Customize the cheese: setting smoked and aged should add 0.25+0.25 = 0.50.
-            Cheese.WHITE_AMERICAN.customizeCheese(true, true);
+            Cheese.AMERICAN.setIsAged(true);
+            Cheese.AMERICAN.setIsSmoked(true);
             Burger testBurger = new Burger(testBun, patties, cheeses, garnishes);
+            testBurger.setItemName("Burger");
 
             double expectedCheesePrice = originalCheesePrice + 0.50;
             double expectedPrice = testBun.getPrice() + Patty.WAGYU.getPrice() + expectedCheesePrice + Garnish.ONION.getPrice();
             assertEquals(expectedPrice, testBurger.getPrice(), 0.001, "Burger price should reflect customized cheese price");
 
             // Check that the display output reflects the updated cheese information.
-            String expectedCheeseDisplay = Cheese.WHITE_AMERICAN.getName() + " (" + String.format("%.2f", Cheese.WHITE_AMERICAN.getPrice()) + ")";
+            String expectedCheeseDisplay = Cheese.AMERICAN.getName();
             assertTrue(testBurger.display().contains(expectedCheeseDisplay), "Burger display should include updated cheese details");
         } finally {
             // Restore original cheese state.
-            Cheese.WHITE_AMERICAN.customizeCheese(originalIsSmoked, originalIsAged);
+            Cheese.AMERICAN.setIsAged(originalIsAged);
+            Cheese.AMERICAN.setIsSmoked(originalIsSmoked);
         }
     }
 
@@ -125,7 +129,7 @@ public class BurgerTest {
         patties.add(Patty.CHICKEN); // e.g., price: 3.50
         patties.add(Patty.BEEF); // e.g., price: 5.00
         ArrayList<Cheese> cheeses = new ArrayList<>();
-        cheeses.add(Cheese.PEPPERJACK); // e.g., price: 2.00
+        cheeses.add(Cheese.PEPPER_JACK); // e.g., price: 2.00
         ArrayList<Garnish> garnishes = new ArrayList<>();
         garnishes.add(Garnish.BACON); // e.g., price: 2.25 (non-veggie bacon)
         garnishes.add(Garnish.AVACADO); // e.g., price: 2.00 (Avocado Slices)
