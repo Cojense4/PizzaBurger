@@ -2,20 +2,25 @@ package com.prog02.pizza_burger;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
-import com.prog02.pizza_burger.model.pizza.*;
 import com.prog02.pizza_burger.model.common.MenuItem;
+import com.prog02.pizza_burger.model.pizza.*;
 import com.prog02.pizza_burger.model.user.CartManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-import static com.prog02.pizza_burger.App.*;
+import static com.prog02.pizza_burger.App.setRoot;
 
 public class PizzaBuilderController implements Initializable {
     @FXML
@@ -173,7 +178,7 @@ public class PizzaBuilderController implements Initializable {
                 vegBox2.setVisible(true);
             }
         }
-        ArrayList<Topping> tExtras = uTemplate.getVegToppings();
+        ArrayList<Topping> tExtras = uTemplate.getExtraToppings();
         extraCountCombo.setValue(String.valueOf(tExtras.size()));
         if (!tExtras.isEmpty()) {
             Topping extra1 = tExtras.getFirst();
@@ -237,15 +242,16 @@ public class PizzaBuilderController implements Initializable {
 
     @FXML
     protected void handleAddToCart() throws IOException {
-        Pizza newPiz = makePizza();
-        cartManager.addItem(newPiz);
-        reloadShopCartPane();
-        setRoot("PizzaBuilder.fxml");
+        if (completeCheck()){
+            Pizza newPiz = makePizza();
+            cartManager.addItem(newPiz);
+            reloadShopCartPane();
+        }
     }
 
     @FXML
     protected void handlePayNow() throws IOException {
-        setRoot("Completed.fxml");
+        setRoot("ShopCart.fxml");
     }
 
     private Pizza makePizza() {
@@ -308,8 +314,14 @@ public class PizzaBuilderController implements Initializable {
             e2.setIsDouble(extraDubChk2.isSelected());
             uToppings.add(e2);
         }
-        // Return a Pizza
-        return new Pizza(uCrust, uSauces, uToppings);
+        // 5. Return the new pizza (if not template, then "Custom Pizza")
+        Pizza uPizza = new Pizza(uCrust, uSauces, uToppings);
+        if (templateCombo.getValue() == null) {
+            uPizza.setItemName("Custom Pizza");
+        } else {
+            uPizza.setItemName(templateCombo.getValue());
+        }
+        return uPizza;
     }
 
     private void reloadShopCartPane() {
@@ -337,5 +349,114 @@ public class PizzaBuilderController implements Initializable {
         }
         return 2;
     }
-
+    private boolean completeCheck() {
+        // Crust completion
+        if (crustCombo.getValue() == null || crustCombo.getValue().isEmpty()) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a crust for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (crustSizeCombo.getValue() == null || crustSizeCombo.getValue().isEmpty()) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select the size of crust you want for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        // Sauce(s) completion
+        if (sauceCountCombo.getValue() == null || sauceCountCombo.getValue().isEmpty()) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select how many sauces you want for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(sauceCountCombo.getValue()) == 1 && (sauceCombo1.getValue() == null || sauceAmtCombo1.getValue() == null)) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select your first sauce type and amount!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(sauceCountCombo.getValue()) == 2 && (sauceCombo2.getValue() == null || sauceAmtCombo2.getValue() == null)) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a second patty for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        // Topping(s) Completion
+        if (chzBox1.isVisible() && (chzCombo1.getValue() == null || chzCombo1.getValue().isEmpty())) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a cheese for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (chzBox2.isVisible() && (chzCombo2.getValue() == null || chzCombo2.getValue().isEmpty())) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a second cheese for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (meatBox1.isVisible() && (meatCombo1.getValue() == null || meatCombo1.getValue().isEmpty())) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a meat for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (meatBox2.isVisible() && (meatCombo2.getValue() == null || meatCombo2.getValue().isEmpty())) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a second meat for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (vegBox1.isVisible() && (vegCombo1.getValue() == null || vegCombo1.getValue().isEmpty())) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a veggie for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (vegBox2.isVisible() && (vegCombo2.getValue() == null || vegCombo2.getValue().isEmpty())) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a second veggie for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (extraBox1.isVisible() && (extraCombo1.getValue() == null || extraCombo1.getValue().isEmpty())) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select an extra topping for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (extraBox2.isVisible() && (extraCombo2.getValue() == null || extraCombo2.getValue().isEmpty())) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Pizza");
+            dialog.setContentText("Please select a second extra topping for your pizza!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        return true;
+    }
 }

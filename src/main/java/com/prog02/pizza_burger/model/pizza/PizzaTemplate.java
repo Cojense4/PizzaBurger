@@ -2,7 +2,6 @@ package com.prog02.pizza_burger.model.pizza;
 
 import com.prog02.pizza_burger.model.common.MenuItem;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,9 +30,18 @@ public enum PizzaTemplate implements MenuItem {
             Crust.TRADITIONAL,
             new ArrayList<>(List.of(Sauce.MEAT)),
             new ArrayList<>(Arrays.asList(Topping.MOZZERELLA, Topping.PROVALONE)),
-            new ArrayList<>(Arrays.asList( Topping.PEPPERONI, Topping.BEEF)),
+            new ArrayList<>(Arrays.asList(Topping.PEPPERONI, Topping.BEEF)),
             new ArrayList<>(Arrays.asList(Topping.OLIVES, Topping.PEPPER)),
             new ArrayList<>(Arrays.asList(Topping.SAUSAGE, Topping.MUSHROOM))
+    ),
+    VEG_LOVER(
+            "Veggie Lover",
+            Crust.CAULIFLOWER,
+            new ArrayList<>(List.of(Sauce.SAUCELESS)),
+            new ArrayList<>(List.of(Topping.VEGAN_MOZZ)),
+            new ArrayList<>(),
+            new ArrayList<>(Arrays.asList(Topping.MUSHROOM, Topping.OLIVES)),
+            new ArrayList<>(Arrays.asList(Topping.PEPPER, Topping.TOMATO))
     );
 
     private final String itemName;

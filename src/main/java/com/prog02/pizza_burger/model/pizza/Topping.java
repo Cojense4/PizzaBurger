@@ -8,6 +8,7 @@ public enum Topping implements MenuItem {
     GRUYERE("Gruyere", "Cheese", 3.50, false),
     MOZZERELLA("Mozzerella", "Cheese", 3.00, false),
     PROVALONE("Provalone", "Cheese", 3.00, false),
+    VEGAN_MOZZ("Vegan Mozzerella", "Cheese", 4.75, false),
     // Meats
     PEPPERONI("Pepperoni", "Meat", 1.50, false),
     BACON("Bacon", "Meat", 3.50, false),

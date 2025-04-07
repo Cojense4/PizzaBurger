@@ -80,9 +80,9 @@
             <padding>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
-            <JFXButton buttonType="RAISED" minHeight="30.0" minWidth="100.0" onAction="#handleAddToCart" prefWidth="100.0" ripplerFill="BLACK" text="Add to Cart" textAlignment="CENTER" />
-            <JFXButton buttonType="RAISED" minHeight="30.0" minWidth="100.0" onAction="#handlePayNow" prefWidth="100.0" ripplerFill="BLACK" text="Finalize Order" textAlignment="CENTER" />
             <JFXButton buttonType="RAISED" minHeight="30.0" minWidth="100.0" onAction="#handleBackToMenu" prefWidth="100.0" ripplerFill="BLACK" text="Back to Menu" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+            <JFXButton buttonType="RAISED" minHeight="30.0" minWidth="100.0" onAction="#handlePayNow" prefWidth="100.0" ripplerFill="BLACK" text="Pay Now" textAlignment="CENTER" />
+            <JFXButton buttonType="RAISED" minHeight="30.0" minWidth="100.0" onAction="#handleAddToCart" prefWidth="100.0" ripplerFill="BLACK" text="Add to Cart" textAlignment="CENTER" />
          </HBox>
       </VBox>
       <Separator orientation="VERTICAL" prefHeight="200.0" />
