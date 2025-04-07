@@ -15,9 +15,9 @@ public enum Garnish implements MenuItem {
     BACON("Bacon", 2.25, false),
     MUSHROOMS("Grilled Mushrooms", 0.25, false);
 
-    private final String itemName;
-    private final double price;
-    private final boolean isVeggie;
+    private String itemName;
+    private double price;
+    private boolean isVeggie;
 
     Garnish(String itemName, double price, boolean isVeggie) {
         this.itemName = itemName;
@@ -25,13 +25,28 @@ public enum Garnish implements MenuItem {
         this.isVeggie = isVeggie;
     }
 
-    @Override
-    public String getName() {
-        return this.itemName + (isVeggie ? " (Veggie)" : "");
+    public String display() {
+        return (isVeggie ? "(Veggie) " : "") + this.itemName;
     }
-
     @Override
     public double getPrice() {
-        return this.price;
+        return price;
+    }
+    @Override
+    public String getName() {
+        return itemName + (isVeggie ? " (Veggie)" : "");
+    }
+    public boolean isVeggie() {
+        return this.isVeggie;
+    }
+
+    public void setPrice(double newPrice) {
+        price = newPrice;
+    }
+    public void setName(String name) {
+        itemName = name;
+    }
+    public void setVeggie(boolean newIsVeggie) {
+       isVeggie = newIsVeggie;
     }
 }

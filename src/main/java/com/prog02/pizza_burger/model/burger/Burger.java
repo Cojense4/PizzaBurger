@@ -5,10 +5,10 @@ import com.prog02.pizza_burger.model.common.Priceable;
 import com.prog02.pizza_burger.model.common.PriceableWrapper;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Burger extends AbstractMenuItem {
-    private final double price;
-    private final String description;
+    private String itemName;
     private Bun bun;
     private ArrayList<Patty> patties;
     private ArrayList<Cheese> cheeses;
@@ -21,7 +21,6 @@ public class Burger extends AbstractMenuItem {
         this.cheeses = cheeses;
         this.garnishes = garnish;
         this.price = getPrice();
-        this.description = "";
     }
 
     /**
@@ -30,7 +29,7 @@ public class Burger extends AbstractMenuItem {
     @Override
     public String display() {
         StringBuilder sb = new StringBuilder();
-        sb.append("---------- Burger ----------\n");
+        sb.append(String.format("---------- %s ----------\n", itemName));
         // bun
         sb.append(bun.display()).append("\n");
         // Patties
@@ -47,7 +46,7 @@ public class Burger extends AbstractMenuItem {
         }
         // Garnishes
         if (garnishes != null && !garnishes.isEmpty()) {
-            sb.append("Garnishes:");
+            sb.append("--- garnishes ---\n");
             for (Garnish topping : garnishes) {
                 sb.append(topping.display()).append("\n");
             }
@@ -55,6 +54,9 @@ public class Burger extends AbstractMenuItem {
         return sb.toString();
     }
 
+    /* Getters and Setters
+    For use to modify the burger (through BurgerTemplate)
+     */
     @Override
     public double getPrice() {
         double totalPrice = 0.0;
@@ -70,9 +72,21 @@ public class Burger extends AbstractMenuItem {
         }
         return totalPrice;
     }
+    public String getName() {return itemName;}
+    public Bun getBun() { return bun; }
+    public ArrayList<Patty> getPatties() { return patties; }
+    public ArrayList<Cheese> getCheeses() { return cheeses; }
+    public ArrayList<Garnish> getGarnishes() { return garnishes; }
 
+    public void setItemName(String newItemName) {
+        this.itemName = newItemName;
+    }
+    public void setBun(Bun bun) { this.bun = bun; }
+    public void setPatties(ArrayList<Patty> patties) { this.patties = patties; }
+    public void setCheeses(ArrayList<Cheese> cheeses) { this.cheeses = cheeses; }
+    public void setGarnishes(ArrayList<Garnish> garnishes) { this.garnishes = garnishes; }
     /**
-     * Returns a sorted list of all Pizza components (crust, sauce, and toppings) based on their price.
+     * Returns a sorted ArrayList of all Burger components (crust, sauce, and toppings) based on their price.
      * Components are sorted in ascending order (lowest price first).
      */
     public ArrayList<Priceable> getSortedComponents() {
@@ -97,6 +111,15 @@ public class Burger extends AbstractMenuItem {
         }
         components.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice()));
         return components;
+    }
+
+    public boolean isEqual(Burger burg2) {
+        boolean isTrue = true;
+        isTrue &= Objects.equals(bun.display(), burg2.bun.display());
+        isTrue &= Objects.equals(patties, burg2.patties);
+        isTrue &= Objects.equals(cheeses, burg2.cheeses);
+        isTrue &= Objects.equals(garnishes, burg2.garnishes);
+        return isTrue;
     }
 
 }

@@ -22,6 +22,49 @@ This project is a GUI-based pizza and burger ordering system built with JavaFX a
   - Other views: [`ShopCart.fxml`](src/main/resources/com/prog02/pizza_burger/ShopCart.fxml), [`Completed.fxml`](src/main/resources/com/prog02/pizza_burger/Completed.fxml)
 - **src/test**: Contains unit tests for the pizza and burger components.
 
+## Changes from original code (Ex 07)
+1. Added fromItemName() method to generate an object based on the class given (defaults to first enum val).
+
+NEW MenuItem, AbstractMenuItem, Priceable, and classes
+MenuItem.java:
+```java
+package com.prog02.pizza_burger.model.common;
+    
+public interface MenuItem {
+    double getPrice();
+    String getName();
+    default String display() { return getName() + " (" + String.format("%.2f",getPrice()) + ")"; }
+    static <T extends Enum<T> & MenuItem> T fromItemName(Class<T> enumType, String itemName) {
+        for (T item : enumType.getEnumConstants()) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        // Returns the first enum constant as the default.
+        return enumType.getEnumConstants()[0];
+    }
+}
+```
+
+NEW PriceableWrapper object for sorting the components as they had more fields than a Priceable object  
+PriceableWrapper.java:
+```java
+package com.prog02.pizza_burger.model.common;
+/**
+ * A wrapper class that adapts a MenuItem to Priceable.
+ */
+public class PriceableWrapper extends Priceable {
+    private final MenuItem item;
+
+    public PriceableWrapper(MenuItem item) {
+        // Call the Priceable constructor using the item's price and name.
+        super(item.getPrice(), item.getName());
+        this.item = item;
+    }
+}
+```
+
+NEW Pizza.java file
 ## Technologies Used
 
 - **JavaFX** for building the user interface.
@@ -61,8 +104,10 @@ This project is a GUI-based pizza and burger ordering system built with JavaFX a
 - **Maven Configuration:**  
   The [pom.xml](pom.xml) file configures the project dependencies and the JavaFX Maven plugin.
 
+
 ## Additional Context
 
+This project is for Programming Assignment 2: GUI for pizza and burger restaurant
 If you need more details about the design or implementation of specific features such as price calculations, component sorting, or FXML controller interactions, feel free to ask!
 
 Happy Coding!
