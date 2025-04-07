@@ -90,7 +90,14 @@ public class Pizza extends AbstractMenuItem {
         return components;
     }
     /* Getters and Setters
-    For use to modify the burger (through BurgerTemplate)
+    For use to modify the pizza (through PizzaTemplate)
      */
 
+    public boolean isEqual(Pizza newPizza) {
+        boolean isTrue = true;
+        isTrue = crust.equals(newPizza.crust)
+        && sauces.equals(newPizza.sauces)
+        && toppings.equals(newPizza.toppings);
+        return isTrue;
+    }
 }

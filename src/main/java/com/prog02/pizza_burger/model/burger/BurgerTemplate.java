@@ -7,6 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum BurgerTemplate implements MenuItem {
+    DEFAULT (
+            "Default Burger",
+            Bun.BRIOCHE,
+            new ArrayList<>(List.of(Patty.BEEF)),
+            new ArrayList<>(List.of(Cheese.AMERICAN)),
+            new ArrayList<>()
+    ),
     CHZ_BURG(
             "Cheeseburger",
             Bun.SESAME,
@@ -20,6 +27,13 @@ public enum BurgerTemplate implements MenuItem {
             new ArrayList<>(List.of(Patty.BEEF)),
             new ArrayList<>(Arrays.asList(Cheese.GOUDA, Cheese.AMERICAN)),
             new ArrayList<>(Arrays.asList(Garnish.LETTUCE, Garnish.TOMATO, Garnish.PICKLES, Garnish.ONION))
+    ),
+    DOUBLE_DOUBLE (
+            "Double Double",
+            Bun.BRIOCHE,
+            new ArrayList<>(List.of(Patty.BEEF, Patty.BEEF)),
+            new ArrayList<>(List.of(Cheese.AMERICAN, Cheese.AMERICAN)),
+            new ArrayList<>(List.of(Garnish.ONION, Garnish.LETTUCE, Garnish.TOMATO))
     ),
     BIG_BURG(
             "King Burger",
@@ -47,18 +61,16 @@ public enum BurgerTemplate implements MenuItem {
     /**
      * Returns a new Burger instance based on the template.
      */
-    public Burger toBurger(String burgerName) {
-        BurgerTemplate burgTemplate = MenuItem.fromItemName(BurgerTemplate.class, burgerName);
+    public Burger toBurger() {
         Burger newBurg = new Burger(
                 bun,
-                new ArrayList<>(burgTemplate.patties),
-                new ArrayList<>(burgTemplate.cheeses),
-                new ArrayList<>(burgTemplate.garnishes)
+                new ArrayList<>(this.patties),
+                new ArrayList<>(this.cheeses),
+                new ArrayList<>(this.garnishes)
         );
         newBurg.setItemName(itemName);
         return newBurg;
     }
-
 
     @Override
     public double getPrice() {

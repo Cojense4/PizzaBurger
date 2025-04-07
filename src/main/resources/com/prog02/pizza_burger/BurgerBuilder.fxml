@@ -111,7 +111,7 @@
                      <Label minWidth="50.0" text="Patty 1:" />
                      <JFXComboBox fx:id="patTypeCombo1" promptText="Patty Type" />
                      <JFXComboBox fx:id="patSeasonCombo1" promptText="Seasoning" />
-                     <JFXSlider fx:id="patCookSlide1" blockIncrement="1" majorTickUnit="1" max="4" min="0" minorTickCount="0" snapToTicks="true" value="2" />
+                     <JFXSlider fx:id="patCookSlide1" blockIncrement="1" majorTickUnit="1" max="4" min="0" minorTickCount="0" showTickMarks="true" snapToTicks="true" value="2" />
                      <!-- e.g., JFXSlider with 0-4 corresponding to CookLevel enum indices -->
                   </HBox>
                   <HBox fx:id="patBox2" alignment="CENTER_LEFT" minWidth="50.0" spacing="10" visible="false">
@@ -119,7 +119,7 @@
                         <Label minWidth="50.0" text="Patty 2:" />
                         <JFXComboBox fx:id="patTypeCombo2" promptText="Patty Type" />
                         <JFXComboBox fx:id="patSeasonCombo2" promptText="Seasoning" />
-                        <JFXSlider fx:id="patCookSlide2" blockIncrement="1" majorTickUnit="1" max="4" min="0" minorTickCount="0" snapToTicks="true" value="2" />
+                        <JFXSlider fx:id="patCookSlide2" blockIncrement="1" majorTickUnit="1" max="4" min="0" minorTickCount="0" showTickMarks="true" snapToTicks="true" value="2" />
                      </children>
                   </HBox>
                   <HBox fx:id="patBox3" alignment="CENTER_LEFT" spacing="10" visible="false">
@@ -127,7 +127,7 @@
                         <Label minWidth="50.0" text="Patty 3:" />
                         <JFXComboBox fx:id="patTypeCombo3" promptText="Patty Type" />
                         <JFXComboBox fx:id="patSeasonCombo3" promptText="Seasoning" />
-                        <JFXSlider fx:id="patCookSlide3" blockIncrement="1" majorTickUnit="1" max="4" min="0" minorTickCount="0" snapToTicks="true" value="2" />
+                        <JFXSlider fx:id="patCookSlide3" blockIncrement="1" majorTickUnit="1" max="4" min="0" minorTickCount="0" showTickMarks="true" snapToTicks="true" value="2" />
                      </children>
                   </HBox>
                   <HBox fx:id="patBox4" alignment="CENTER_LEFT" spacing="10" visible="false">
@@ -135,7 +135,7 @@
                         <Label minWidth="50.0" text="Patty 4:" />
                         <JFXComboBox fx:id="patTypeCombo4" promptText="Patty Type" />
                         <JFXComboBox fx:id="patSeasonCombo4" promptText="Seasoning" />
-                        <JFXSlider fx:id="patCookSlide4" blockIncrement="1" majorTickUnit="1" max="4" min="0" minorTickCount="0" snapToTicks="true" value="2" />
+                        <JFXSlider fx:id="patCookSlide4" blockIncrement="1" majorTickUnit="1" max="4" min="0" minorTickCount="0" showTickMarks="true" snapToTicks="true" value="2" />
                      </children>
                   </HBox>
                   <padding>
@@ -210,7 +210,7 @@
             </HBox.margin>
          </VBox>
          <Separator orientation="VERTICAL" prefHeight="200.0" />
-         <fx:include fx:id="shopCartPaneContainer" source="ShopCartPane.fxml"/>
+         <fx:include fx:id="shopCartPaneContainer" source="ShopCartPane.fxml" />
       </children>
    </HBox>
    <Separator layoutX="239.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />

@@ -17,6 +17,8 @@ import javafx.fxml.FXML;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -190,21 +192,18 @@ public class BurgerBuilderController implements Initializable {
     }
     @FXML
     protected void handleAddToCart() throws IOException {
-        Burger newBurg = makeBurger();
-        cartManager.addItem(newBurg);
-        reloadShopCartPane();
-        App.setRoot("BurgerBuilder.fxml");
+        if (completeCheck()) {
+            Burger newBurg = makeBurger();
+            cartManager.addItem(newBurg);
+            reloadShopCartPane();
+        }
     }
     @FXML
     protected void handlePayNow() throws IOException {
-        Burger newBurg = makeBurger();
-        cartManager.addItem(newBurg);
-        setRoot("Completed.fxml");
+        setRoot("ShopCart.fxml");
     }
     @FXML
     protected void handleBackToMenu() throws IOException {
-        Burger newBurg = makeBurger();
-        cartManager.addItem(newBurg);
         setRoot("Main.fxml");
     }
 
@@ -243,25 +242,25 @@ public class BurgerBuilderController implements Initializable {
         
         // 3. Set cheese details for each cheese slot
         ArrayList<Cheese> uCheeses = new ArrayList<>();
-        if (Integer.parseInt(pattyCountCombo.getValue()) >= 1) {
+        if (chzBox1.isVisible()) {
             Cheese chz1 = MenuItem.fromItemName(Cheese.class, chzTypeCombo1.getValue());
             chz1.setIsSmoked(chzSmokeChk1.isSelected());
             chz1.setIsAged(chzAgeChk1.isSelected());
             uCheeses.add(chz1);
         }
-        if (Integer.parseInt(pattyCountCombo.getValue()) >= 2) {
+        if (chzBox2.isVisible()) {
             Cheese chz2 = MenuItem.fromItemName(Cheese.class, chzTypeCombo2.getValue());
             chz2.setIsSmoked(chzSmokeChk2.isSelected());
             chz2.setIsAged(chzAgeChk2.isSelected());
             uCheeses.add(chz2);
         }
-        if (Integer.parseInt(pattyCountCombo.getValue()) >= 3) {
+        if (chzBox3.isVisible()) {
             Cheese chz3 = MenuItem.fromItemName(Cheese.class, chzTypeCombo3.getValue());
             chz3.setIsSmoked(chzSmokeChk3.isSelected());
             chz3.setIsAged(chzAgeChk3.isSelected());
             uCheeses.add(chz3);
         }
-        if (Integer.parseInt(pattyCountCombo.getValue()) >= 4) {
+        if (chzBox4.isVisible()) {
             Cheese chz4 = MenuItem.fromItemName(Cheese.class, chzTypeCombo4.getValue());
             chz4.setIsSmoked(chzSmokeChk4.isSelected());
             chz4.setIsAged(chzAgeChk4.isSelected());
@@ -295,12 +294,22 @@ public class BurgerBuilderController implements Initializable {
             uGarnishes.add(Garnish.MUSHROOMS);
         }
 
-        // 5. Return the new burger (if not template, then custom burger
+        // 5. Return the new burger (if not template, then custom burger)
         Burger uBurg = new Burger(uBun, uPatties, uCheeses, uGarnishes);
-        if (templateCombo.getValue() == null) {
-            uBurg.setItemName("Custom Burger");
-        } else {
-            uBurg.setItemName(templateCombo.getValue());
+        uBurg.setItemName("Custom Burger");
+
+        if (templateCombo.getValue() != null) {
+            uBurg.setItemName(String.format("Custom %s",templateCombo.getValue()));
+        }
+        ArrayList<Burger> tempBurgers = new ArrayList<>();
+        for (BurgerTemplate burg : BurgerTemplate.values()) {
+            tempBurgers.add(burg.toBurger());
+        }
+        for (Burger burg : tempBurgers) {
+            if (uBurg.isEqual(burg)) {
+                uBurg.setItemName(burg.getName());
+                break;
+            }
         }
         return uBurg;
     }
@@ -331,4 +340,89 @@ public class BurgerBuilderController implements Initializable {
         }
         return 2;
     }
+
+    private boolean completeCheck() {
+        if (bunCombo.getValue() == null || bunCombo.getValue().isEmpty()) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a bun for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (pattyCountCombo.getValue() == null || pattyCountCombo.getValue().isEmpty()) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select the number of patties you want on your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) == 1 && patTypeCombo1.getValue() == null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a patty for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) == 1 && chzTypeCombo1.getValue() == null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a cheese for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) == 2 && patTypeCombo2.getValue() == null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a second patty for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) == 2 && chzTypeCombo2.getValue() == null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a second cheese for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) == 3 && patTypeCombo3.getValue() == null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a third patty for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) == 3 && chzTypeCombo3.getValue() == null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a third cheese for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) == 4 && patTypeCombo4.getValue() == null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a fourth patty for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        if (Integer.parseInt(pattyCountCombo.getValue()) == 4 && chzTypeCombo3.getValue() == null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Incomplete Burger");
+            dialog.setContentText("Please select a fourth cheese for your burger!");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            dialog.showAndWait();
+            return false;
+        }
+        return true;
+    }
 }
+

@@ -22,8 +22,8 @@ public enum Cheese implements MenuItem {
         this.isAged = isAged;
     }
 
-    public String getNiceName() {
-        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName + " Cheese";
+    public String display() {
+        return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName;
     }
 
     // Getters and Setters

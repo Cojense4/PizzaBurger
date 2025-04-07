@@ -5,6 +5,7 @@ import com.prog02.pizza_burger.model.common.Priceable;
 import com.prog02.pizza_burger.model.common.PriceableWrapper;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Burger extends AbstractMenuItem {
     private String itemName;
@@ -71,6 +72,7 @@ public class Burger extends AbstractMenuItem {
         }
         return totalPrice;
     }
+    public String getName() {return itemName;}
     public Bun getBun() { return bun; }
     public ArrayList<Patty> getPatties() { return patties; }
     public ArrayList<Cheese> getCheeses() { return cheeses; }
@@ -109,6 +111,15 @@ public class Burger extends AbstractMenuItem {
         }
         components.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice()));
         return components;
+    }
+
+    public boolean isEqual(Burger burg2) {
+        boolean isTrue = true;
+        isTrue &= Objects.equals(bun.display(), burg2.bun.display());
+        isTrue &= Objects.equals(patties, burg2.patties);
+        isTrue &= Objects.equals(cheeses, burg2.cheeses);
+        isTrue &= Objects.equals(garnishes, burg2.garnishes);
+        return isTrue;
     }
 
 }

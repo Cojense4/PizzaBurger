@@ -25,6 +25,9 @@ public enum Garnish implements MenuItem {
         this.isVeggie = isVeggie;
     }
 
+    public String display() {
+        return (isVeggie ? "(Veggie) " : "") + this.itemName;
+    }
     @Override
     public double getPrice() {
         return price;
