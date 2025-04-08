@@ -1,48 +1,8 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
-*.ipr
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+### IDE ###
 .vscode/
-
-### Mac OS ###
-.DS_Store
-
-### OTHERS ###
 .idea/
+### OTHERS ###
 .mvn/
-mvnw
-mvnw.cmd
-src/main/java/com/prog02/pizza_burger/model/pizza/PizzaBuilder.java
-src/main/java/com/prog02/pizza_burger/model/burger/CheeseTester.java
-src/main/java/com/prog02/pizza_burger/model/burger/PattiesTest.java
-/unnamed.patch
+logs/
+target/
+.DS_Store
