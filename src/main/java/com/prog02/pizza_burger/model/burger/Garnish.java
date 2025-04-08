@@ -17,16 +17,16 @@ public enum Garnish implements MenuItem {
 
     private String itemName;
     private double price;
-    private boolean isVeggie;
+    private boolean isCooked;
 
-    Garnish(String itemName, double price, boolean isVeggie) {
+    Garnish(String itemName, double price, boolean isCooked) {
         this.itemName = itemName;
         this.price = price;
-        this.isVeggie = isVeggie;
+        this.isCooked = isCooked;
     }
 
     public String display() {
-        return (isVeggie ? "(Veggie) " : "") + this.itemName;
+        return (isCooked ? "(Veggie) " : "") + this.itemName;
     }
     @Override
     public double getPrice() {
@@ -34,10 +34,10 @@ public enum Garnish implements MenuItem {
     }
     @Override
     public String getName() {
-        return itemName + (isVeggie ? " (Veggie)" : "");
+        return itemName + (isCooked ? " (Veggie)" : "");
     }
-    public boolean isVeggie() {
-        return this.isVeggie;
+    public boolean isCooked() {
+        return this.isCooked;
     }
 
     public void setPrice(double newPrice) {
@@ -46,7 +46,7 @@ public enum Garnish implements MenuItem {
     public void setName(String name) {
         itemName = name;
     }
-    public void setVeggie(boolean newIsVeggie) {
-       isVeggie = newIsVeggie;
+    public void setCooked(boolean newIsVeggie) {
+       isCooked = newIsVeggie;
     }
 }

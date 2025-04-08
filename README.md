@@ -20,94 +20,71 @@ This project is a GUI-based pizza and burger ordering system built with JavaFX a
 - **src/main/resources**: Contains the FXML files and other resources.
   - Main views: [`Main.fxml`](src/main/resources/com/prog02/pizza_burger/Main.fxml), [`PizzaBuilder.fxml`](src/main/resources/com/prog02/pizza_burger/PizzaBuilder.fxml), [`BurgerBuilder.fxml`](src/main/resources/com/prog02/pizza_burger/BurgerBuilder.fxml)
   - Other views: [`ShopCart.fxml`](src/main/resources/com/prog02/pizza_burger/ShopCart.fxml), [`Completed.fxml`](src/main/resources/com/prog02/pizza_burger/Completed.fxml)
-- **src/test**: Contains unit tests for the pizza and burger components.
+- **[`src/test/PizzaTest`](src/test/com/prog02/pizza_burger/model/PizzaTest.java)& [`src/test/BurgerTest`](src/test/com/prog02/pizza_burger/model/BurgerTest.java)**: Contains unit tests for the pizza and burger components.
 
 ## Changes from original code (Ex 07)
-1. Added fromItemName() method to generate an object based on the class given (defaults to first enum val).
+* [`MenuItem`](src/main/java/com/prog02/pizza_burger/model/common/MenuItem.java) interface has new methods to make creating an instantiation of a class easier
+* All item classes have been consolidated down to enum 'templates' (Ex. ThickCrust, ThinCrust, etc. --> one enum file)
+  * Pizza Components:
+    - **[`Crust`](src/main/java/com/prog02/pizza_burger/model/pizza/Crust.java)**: Traditional, Thin, Cauliflower, Thick
+    - **[`Sauce`](src/main/java/com/prog02/pizza_burger/model/pizza/Sauce.java)**: Alfredo, Traditional, Meat, Garlic
+    - **[`Topping`](src/main/java/com/prog02/pizza_burger/model/pizza/Topping.java)**: Cheeses, Meats, & Veggies
+      - The toppings are all in the same enum but have four values to each type
+  * Burger Components:
+    - **[`Bun`](src/main/java/com/prog02/pizza_burger/model/burger/Bun.java)**: Brioche, Potato, Sesame, Sourdough
+    - **[`Cheese`](src/main/java/com/prog02/pizza_burger/model/burger/Cheese.java)**: American, Cheddar, Gouda, Pepper_Jack
+    - **[`Garnish`](src/main/java/com/prog02/pizza_burger/model/burger/Garnish.java)**: Veg and Non-Veg
+      - isCooked is a variable that helps to determine if the topping has been cooked ([Food Handlers Permit](https://foodhandlers.unl.edu/en/login))
+    - **[`Patty`](src/main/java/com/prog02/pizza_burger/model/burger/Patty.java)**: Beef, Wagyu, Chicken, Salmon
+* Full classes ([`Pizza`](src/main/java/com/prog02/pizza_burger/model/pizza/Pizza.java) and [`Burger`](src/main/java/com/prog02/pizza_burger/model/burger/Burger.java)) also have their own templates (PizzaTemplate & BurgerTemplate)
+   - **[`PizzaTemplate`](src/main/java/com/prog02/pizza_burger/model/pizza/PizzaTemplate.java)**: Cheese, Pepperoni, Supreme, Veggie Lover
+   - **[`BurgerTemplate`](src/main/java/com/prog02/pizza_burger/model/burger/BurgerTemplate.java)**: Cheeseburger, Bacon Cheeseburger, Double Double, King Burger
+* Managing the cart contents is done through [`CartManager`](src/main/java/com/prog02/pizza_burger/model/user/CartManager.java)
+* Locally hosting is enabled by [JPro Academic License](https://www.jpro.one/)
 
-NEW MenuItem, AbstractMenuItem, Priceable, and classes
-MenuItem.java:
-```java
-package com.prog02.pizza_burger.model.common;
-    
-public interface MenuItem {
-    double getPrice();
-    String getName();
-    default String display() { return getName() + " (" + String.format("%.2f",getPrice()) + ")"; }
-    static <T extends Enum<T> & MenuItem> T fromItemName(Class<T> enumType, String itemName) {
-        for (T item : enumType.getEnumConstants()) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
-                return item;
-            }
-        }
-        // Returns the first enum constant as the default.
-        return enumType.getEnumConstants()[0];
-    }
-}
-```
-
-NEW PriceableWrapper object for sorting the components as they had more fields than a Priceable object  
-PriceableWrapper.java:
-```java
-package com.prog02.pizza_burger.model.common;
-/**
- * A wrapper class that adapts a MenuItem to Priceable.
- */
-public class PriceableWrapper extends Priceable {
-    private final MenuItem item;
-
-    public PriceableWrapper(MenuItem item) {
-        // Call the Priceable constructor using the item's price and name.
-        super(item.getPrice(), item.getName());
-        this.item = item;
-    }
-}
-```
-
-NEW Pizza.java file
 ## Technologies Used
-
-- **JavaFX** for building the user interface.
 - **Maven** for dependency management and build automation.
-- **JUnit 5** for unit testing.
+- **JavaFX** for building the user interface.
 - **JFoenix** for Material Design styled controls.
+- **JUnit 5** for unit testing.
+- **JPro** for hosting JavaFX on the web
 
 ## Building and Running
 
 1. **Build the Project:**  
    Use Maven to compile the project:
-   ```sh
-   mvn clean compile
+   ```shell
+   mvn clean
    ```
 
 2. **Run Unit Tests:**  
-   Execute the tests with:
-   ```sh
+   Execute the unit tests with:
+   ```shell
    mvn test
    ```
 
-3. **Run the Application:**  
-   Use the JavaFX Maven plugin:
-   ```sh
-   mvn clean javafx:run
-   ```
-
+3. **Run the Application (Via javafx):**  
+   * Use the JavaFX Maven plugin:
+      ```shell
+      mvn clean javafx:run
+      ```
+    Or
+   * Use the JPro Maven plugin:
+       ```shell
+       mvn jpro:run
+       ```
 ## Usage
-
-- Launch the application to see the main menu.
+- Start the application to see the main menu.
 - **Make Pizza:** Click the "Make Pizza" button to customize your pizza.
 - **Make Burger:** Click the "Make Burger" button to customize your burger.
 - Add items to the cart and check out to see the final receipt.
 
 ## Configuration
-
 - **Maven Configuration:**  
-  The [pom.xml](pom.xml) file configures the project dependencies and the JavaFX Maven plugin.
+  The [`pom.xml`](pom.xml) file configures the project dependencies.
 
 
 ## Additional Context
 
 This project is for Programming Assignment 2: GUI for pizza and burger restaurant
-If you need more details about the design or implementation of specific features such as price calculations, component sorting, or FXML controller interactions, feel free to ask!
-
-Happy Coding!
+If you need more details about the design or implementation of specific features, please ask!

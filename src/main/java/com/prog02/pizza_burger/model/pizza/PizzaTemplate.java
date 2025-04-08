@@ -35,7 +35,7 @@ public enum PizzaTemplate implements MenuItem {
             new ArrayList<>(Arrays.asList(Topping.SAUSAGE, Topping.MUSHROOM))
     ),
     VEG_LOVER(
-            "Veggie Lover",
+            "Veggie Lover Pizza",
             Crust.CAULIFLOWER,
             new ArrayList<>(List.of(Sauce.SAUCELESS)),
             new ArrayList<>(List.of(Topping.VEGAN_MOZZ)),
