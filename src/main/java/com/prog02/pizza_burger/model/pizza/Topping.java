@@ -33,7 +33,8 @@ public enum Topping implements MenuItem {
         this.isDouble = false;
     }
 
-    public String getNiceName() {
+    @Override
+    public String display() {
         return (isDouble? "2x - " : "1x - ") + this.itemName + " (" + this.toppingType + ")";
     }
 

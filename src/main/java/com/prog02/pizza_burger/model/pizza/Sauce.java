@@ -30,7 +30,7 @@ public enum Sauce implements MenuItem {
     }
     @Override
     public String display() {
-        return String.format("%s %s", getSauceStr(), this.itemName);
+        return String.format("(%s) %s", getSauceStr(), this.itemName);
     }
 
     @Override
