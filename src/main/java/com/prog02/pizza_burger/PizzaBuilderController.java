@@ -387,7 +387,7 @@ public class PizzaBuilderController implements Initializable {
         if (Integer.parseInt(sauceCountCombo.getValue()) == 2 && (sauceCombo2.getValue() == null || sauceAmtCombo2.getValue() == null)) {
             Dialog<String> dialog = new Dialog<>();
             dialog.setTitle("Incomplete Pizza");
-            dialog.setContentText("Please select a second patty for your burger!");
+            dialog.setContentText("Please select a second sauce for your pizza!");
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.showAndWait();
             return false;
