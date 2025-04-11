@@ -22,6 +22,14 @@ public class Burger extends AbstractMenuItem {
         this.garnishes = garnish;
         this.price = getPrice();
     }
+    // No-argument constructor for JSON deserialization
+    public Burger() {
+        this.bun = null;
+        this.patties = new ArrayList<>();
+        this.cheeses = new ArrayList<>();
+        this.garnishes = new ArrayList<>();
+        this.price = 0.0;
+    }
 
     /**
      * Displays the Burger build as a printed receipt.

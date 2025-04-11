@@ -1,6 +1,7 @@
 package com.prog02.pizza_burger.model.pizza;
 
 import com.prog02.pizza_burger.model.common.AbstractMenuItem;
+import com.prog02.pizza_burger.model.common.MenuItem;
 import com.prog02.pizza_burger.model.common.Priceable;
 import com.prog02.pizza_burger.model.common.PriceableWrapper;
 
@@ -18,6 +19,13 @@ public class Pizza extends AbstractMenuItem {
         this.sauces = sauces;
         this.toppings = toppings;
         this.price = getPrice();
+    }
+    // No-argument constructor for JSON deserialization
+    public Pizza() {
+        this.crust = null;
+        this.sauces = new ArrayList<>();
+        this.toppings = new ArrayList<>();
+        this.price = 0.0;
     }
 
     /**

@@ -77,6 +77,16 @@ public enum PizzaTemplate implements MenuItem {
         newPiz.setItemName(itemName);
         return newPiz;
     }
+    public Pizza toPizza() {
+        PizzaTemplate pizTemplate = MenuItem.fromItemName(PizzaTemplate.class, itemName);
+        Pizza newPiz = new Pizza(
+                pizTemplate.crust,
+                new ArrayList<>(pizTemplate.sauces),
+                new ArrayList<>(pizTemplate.allToppings)
+        );
+        newPiz.setItemName(itemName);
+        return newPiz;
+    }
 
     @Override
     public double getPrice() {
