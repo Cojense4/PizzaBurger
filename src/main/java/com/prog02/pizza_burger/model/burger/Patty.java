@@ -43,6 +43,11 @@ public enum Patty implements MenuItem {
                 " (" + getCookStr() + ")";
     }
 
+    @Override
+    public Long getId() {
+        return 0L;
+    }
+
     // Getters & Setters
     @Override
     public double getPrice() {

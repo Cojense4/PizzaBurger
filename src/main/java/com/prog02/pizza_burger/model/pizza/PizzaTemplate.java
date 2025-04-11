@@ -11,11 +11,11 @@ public enum PizzaTemplate implements MenuItem {
             "Cheese Pizza",
             Crust.TRADITIONAL,
             new ArrayList<>(List.of(Sauce.TRADITIONAL)),
-            new ArrayList<>(Arrays.asList(Topping.MOZZERELLA, Topping.GRUYERE)), 
+            new ArrayList<>(Arrays.asList(Topping.MOZZERELLA, Topping.GRUYERE)),
             new ArrayList<>(),
             new ArrayList<>(),
             new ArrayList<>()
-                        ),
+    ),
     PEPPERONI(
             "Pepperoni Pizza",
             Crust.TRADITIONAL,
@@ -68,23 +68,21 @@ public enum PizzaTemplate implements MenuItem {
      * Returns a new Pizza instance based on the template.
      */
     public Pizza toPizza(String pizzaName) {
-        PizzaTemplate pizTemplate = MenuItem.fromItemName(PizzaTemplate.class, pizzaName);
         Pizza newPiz = new Pizza(
-                pizTemplate.crust,
-                new ArrayList<>(pizTemplate.sauces),
-                new ArrayList<>(pizTemplate.allToppings)
+                this.crust,
+                new ArrayList<>(this.sauces),
+                new ArrayList<>(this.getToppings())
         );
-        newPiz.setItemName(itemName);
+        newPiz.setItemName(pizzaName);
         return newPiz;
     }
     public Pizza toPizza() {
-        PizzaTemplate pizTemplate = MenuItem.fromItemName(PizzaTemplate.class, itemName);
         Pizza newPiz = new Pizza(
-                pizTemplate.crust,
-                new ArrayList<>(pizTemplate.sauces),
-                new ArrayList<>(pizTemplate.allToppings)
+                this.crust,
+                new ArrayList<>(this.sauces),
+                new ArrayList<>(this.getToppings())
         );
-        newPiz.setItemName(itemName);
+        newPiz.setItemName(this.itemName);
         return newPiz;
     }
 
@@ -105,6 +103,12 @@ public enum PizzaTemplate implements MenuItem {
     public String getName() {
         return itemName;
     }
+
+    @Override
+    public Long getId() {
+        return 0L;
+    }
+
     public Crust getCrust() { return crust; }
     public ArrayList<Sauce> getSauces() { return sauces; }
     public ArrayList<Topping> getChzToppings() { return chzToppings; }

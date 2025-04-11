@@ -41,6 +41,12 @@ public enum Topping implements MenuItem {
     public String getName() {
         return itemName;
     }
+
+    @Override
+    public Long getId() {
+        return 0L;
+    }
+
     public String getType() {return toppingType;}
     @Override
     public double getPrice() {

@@ -1,111 +1,95 @@
 package com.prog02.pizza_burger.model.pizza;
 
+import jakarta.persistence.*;
 import com.prog02.pizza_burger.model.common.AbstractMenuItem;
-import com.prog02.pizza_burger.model.common.MenuItem;
-import com.prog02.pizza_burger.model.common.Priceable;
-import com.prog02.pizza_burger.model.common.PriceableWrapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "pizzas")
 public class Pizza extends AbstractMenuItem {
-    private String itemName;
-    private Crust crust;
-    private ArrayList<Sauce> sauces;
-    private ArrayList<Topping> toppings;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    // Constructor taking the enums.
+    @Column(name = "item_name")
+    private String itemName;
+
+    // Crust represented as an enum (e.g., THIN, THICK, STUFFED, GLUTEN_FREE)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "crust")
+    private Crust crust;
+
+    // Up to 2 sauces – stored as a list of Sauce enum values.
+    @ElementCollection(targetClass = Sauce.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "pizza_sauces", joinColumns = @JoinColumn(name = "pizza_id"))
+    @Column(name = "sauce")
+    private List<Sauce> sauces = new ArrayList<>();
+
+    // Up to 8 toppings – stored as a list of Topping enum values.
+    @ElementCollection(targetClass = Topping.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "pizza_toppings", joinColumns = @JoinColumn(name = "pizza_id"))
+    @Column(name = "topping")
+    private List<Topping> toppings = new ArrayList<>();
+
+
+    // Default constructor
+    public Pizza() {
+    }
     public Pizza(Crust crust, ArrayList<Sauce> sauces, ArrayList<Topping> toppings) {
         this.crust = crust;
         this.sauces = sauces;
         this.toppings = toppings;
-        this.price = getPrice();
-    }
-    // No-argument constructor for JSON deserialization
-    public Pizza() {
-        this.crust = null;
-        this.sauces = new ArrayList<>();
-        this.toppings = new ArrayList<>();
-        this.price = 0.0;
     }
 
-    /**
-     * Displays the pizza build as a printed receipt.
-     */
-    public String display() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("---------- %s ----------\n", itemName));
-        // crust
-        sb.append(crust.display()).append("\n");
-        // sauces
-        if (sauces != null && !sauces.isEmpty()) {
-            for (Sauce sauce : sauces) {
-                sb.append(sauce.display()).append("\n");
-            }
-        }
-        // toppings
-        if (toppings != null && !toppings.isEmpty()) {
-            sb.append("--- Toppings ---\n");
-            for (Topping topping : toppings) {
-                sb.append(topping.display()).append("\n");
-            }
-        }
-        return sb.toString();
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+    public String getItemName() {
+        return itemName;
+    }
+    public Crust getCrust() {
+        return crust;
+    }
+    public List<Sauce> getSauces() {
+        return sauces;
+    }
+    public List<Topping> getToppings() {
+        return toppings;
     }
 
-    @Override
-    public double getPrice() {
-        double totalPrice = 0.0;
-        totalPrice += crust.getPrice();
-        for (Sauce sauce : sauces) {
-            totalPrice += sauce.getPrice();
-        }
-        for (Topping topping : toppings) {
-            totalPrice += topping.getPrice();
-        }
-        return totalPrice;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
-
-    public Crust getCrust() { return crust; }
-    public ArrayList<Sauce> getSauces() { return sauces; }
-    public ArrayList<Topping> getToppings() { return toppings; }
-
-    public void setItemName(String itemName) { this.itemName = itemName; }
-    public void setCrust(Crust newCrust) { this.crust = newCrust; }
-    public void setSauces(ArrayList<Sauce> newSauces) { this.sauces = newSauces; }
-    public void setToppings(ArrayList<Topping> newToppings) { this.toppings = newToppings; }
-
-
-    /**
-     * Returns a sorted list of all Pizza components (crust, sauces, and toppings) based on their price.
-     * Components are sorted in ascending order (lowest price first).
-     */
-    public ArrayList<Priceable> getSortedComponents() {
-        ArrayList<Priceable> components = new ArrayList<>();
-        if (crust != null) {
-            components.add(new PriceableWrapper(crust));
-        }
-        if (sauces != null) {
-            for (Sauce sauce : sauces) {
-                components.add(new PriceableWrapper(sauce));
-            }
-        }
-        if (toppings != null) {
-            for (Topping topping : toppings) {
-                components.add(new PriceableWrapper(topping));
-            }
-        }
-        components.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice()));
-        return components;
+    public void setCrust(Crust crust) {
+        this.crust = crust;
     }
-    /* Getters and Setters
-    For use to modify the pizza (through PizzaTemplate)
-     */
-
-    public boolean isEqual(Pizza newPizza) {
-        boolean isTrue = true;
-        isTrue = crust.equals(newPizza.crust)
-        && sauces.equals(newPizza.sauces)
-        && toppings.equals(newPizza.toppings);
-        return isTrue;
+    public void setSauces(List<Sauce> sauces) {
+        if (sauces != null && sauces.size() > 2) {
+            throw new IllegalArgumentException("Cannot have more than 2 sauces");
+        }
+        this.sauces = sauces;
+    }
+    public void setToppings(List<Topping> toppings) {
+        if (toppings != null && toppings.size() > 8) {
+            throw new IllegalArgumentException("Cannot have more than 8 toppings");
+        }
+        this.toppings = toppings;
+    }
+    public void addSauce(Sauce sauce) {
+        if (this.sauces.size() >= 2) {
+            throw new IllegalArgumentException("Cannot add more than 2 sauces");
+        }
+        this.sauces.add(sauce);
+    }
+    public void addTopping(Topping topping) {
+        if (this.toppings.size() >= 8) {
+            throw new IllegalArgumentException("Cannot add more than 8 toppings");
+        }
+        this.toppings.add(topping);
     }
 }

@@ -1,8 +1,12 @@
 package com.prog02.pizza_burger.controller;
 
 import com.prog02.pizza_burger.dto.BurgerDTO;
+import com.prog02.pizza_burger.dto.PizzaDTO;
 import com.prog02.pizza_burger.model.burger.Burger;
+import com.prog02.pizza_burger.model.pizza.Pizza;
 import com.prog02.pizza_burger.service.BurgerService;
+import com.prog02.pizza_burger.service.PizzaService;
+
 import com.prog02.pizza_burger.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +29,16 @@ public class CartController {
     public ResponseEntity<Burger> addBurgerToCart(@RequestBody BurgerDTO burgerDTO) {
         // Create a Burger using the business logic in BurgerService.
         Burger burger = burgerService.createBurger(burgerDTO);
-        cartService.addItem(burger);
+        cartService.addCartItem(burger);
         return ResponseEntity.ok(burger);
+    }
+
+    @PostMapping("/add-pizza")
+    public ResponseEntity<Pizza> addPizzaToCart(@RequestBody PizzaDTO pizzaDTO) {
+        // Create a Pizza using the business logic in PizzaService.
+        Pizza pizza = PizzaService.createPizza(pizzaDTO);
+        cartService.addCartItem(pizza);
+        return ResponseEntity.ok(pizza);
     }
 
     // Endpoint to retrieve all cart items

@@ -1,16 +1,15 @@
 package com.prog02.pizza_burger.model.pizza;
 import com.prog02.pizza_burger.model.common.MenuItem;
-
 import java.util.Map;
 
 public enum Crust implements MenuItem {
     // Normal Crust
-    TRADITIONAL("Traditional Crust", 5.00, 2),
-    THIN("Thin Crust", 4.50, 2),
-    CAULIFLOWER("Cauliflower Crust", 3.50, 2),
+    TRADITIONAL("Traditional", 5.00, 2),
+    THIN("Thin", 4.50, 2),
+    CAULIFLOWER("Cauliflower", 3.50, 2),
     // Deep Dish Crust
-    THICK("Thick Crust", 6.00, 2),
-    DEEP_DISH("Deep Dish Crust", 8.00, 2);
+    THICK("Thick", 6.00, 2),
+    DEEP_DISH("Deep Dish", 8.00, 2);
 
     private String itemName;
     private double price;
@@ -30,9 +29,20 @@ public enum Crust implements MenuItem {
         this.price = price;
         this.size = size;
     }
+    Crust() {
+        Crust crustMI = MenuItem.fromItemName(Crust.class, "Traditional");
+        this.itemName = crustMI.getName();
+        this.price = crustMI.getPrice();
+        this.size = crustMI.getSizeInt();
+    }
 
     @Override
-    public String display() { return itemName + " (" + getSizeStr() + ")"; }
+    public String display() { return itemName + " Crust (" + getSizeStr() + ")"; }
+
+    @Override
+    public Long getId() {
+        return 0L;
+    }
 
     @Override
     public String getName() { return itemName; }

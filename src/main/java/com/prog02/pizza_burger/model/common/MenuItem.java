@@ -13,4 +13,6 @@ public interface MenuItem {
         // Returns the first enum constant as the default.
         return enumType.getEnumConstants()[0];
     }
+
+    Long getId();
 }

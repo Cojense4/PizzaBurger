@@ -1,6 +1,7 @@
 package com.prog02.pizza_burger.service;
 
 import com.prog02.pizza_burger.dto.BurgerDTO;
+import com.prog02.pizza_burger.model.common.MenuItem;
 import com.prog02.pizza_burger.model.burger.*;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -9,8 +10,7 @@ import java.util.ArrayList;
 public class BurgerService {
 
     public Burger createBurger(BurgerDTO burgerDTO) {
-        // Convert DTO values into enum instances; for simplicity, assume the names match.
-        Bun bun = convertToBun(burgerDTO.getBun());
+        Bun bun = MenuItem.fromItemName(Bun.class, burgerDTO.getItemName());
 
         // Process patties
         ArrayList<Patty> patties = new ArrayList<>();
@@ -36,18 +36,7 @@ public class BurgerService {
 
         Burger newBurger = new Burger(bun, patties, cheeses, garnishes);
         newBurger.setItemName(burgerDTO.getItemName());
-        // Optionally: compare against BurgerTemplate for template matching
-
         return newBurger;
     }
 
-    private Bun convertToBun(String bunName) {
-        for (Bun bun : Bun.values()) {
-            if (bun.getName().equalsIgnoreCase(bunName)) {
-                return bun;
-            }
-        }
-        // Fallback to a default bun if conversion fails:
-        return Bun.BRIOCHE;
-    }
 }

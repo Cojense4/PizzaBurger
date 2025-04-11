@@ -2,6 +2,7 @@ package com.prog02.pizza_burger.model.burger;
 
 import com.prog02.pizza_burger.model.common.MenuItem;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +43,6 @@ public enum BurgerTemplate implements MenuItem {
             new ArrayList<>(Arrays.asList(Cheese.AMERICAN, Cheese.GOUDA, Cheese.CHEDDAR, Cheese.AMERICAN)),
             new ArrayList<>(Arrays.asList(Garnish.LETTUCE, Garnish.TOMATO, Garnish.PICKLES, Garnish.ONION))
     );
-    // Add more templates as needed
 
     private final String itemName;
     private final Bun bun;
@@ -61,6 +61,16 @@ public enum BurgerTemplate implements MenuItem {
     /**
      * Returns a new Burger instance based on the template.
      */
+    public Burger toBurger(String burgerName) {
+        Burger newBurger = new Burger(
+                this.bun,
+                new ArrayList<>(this.patties),
+                new ArrayList<>(this.cheeses),
+                new ArrayList<>(this.garnishes)
+        );
+        newBurger.setItemName(itemName);
+        return newBurger;
+    }
     public Burger toBurger() {
         Burger newBurg = new Burger(
                 bun,
@@ -92,6 +102,12 @@ public enum BurgerTemplate implements MenuItem {
     public String getName() {
         return itemName;
     }
+
+    @Override
+    public Long getId() {
+        return 0L;
+    }
+
     public Bun getBun() {
         return bun;
     }

@@ -26,6 +26,11 @@ public enum Cheese implements MenuItem {
         return (isSmoked ? "Smoked " : "") + (isAged ? "Aged " : "") + this.itemName;
     }
 
+    @Override
+    public Long getId() {
+        return 0L;
+    }
+
     // Getters and Setters
     @Override
     public double getPrice() {

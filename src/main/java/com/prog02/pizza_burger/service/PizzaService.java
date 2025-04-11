@@ -9,13 +9,14 @@ import java.util.ArrayList;
 @Service
 public class PizzaService {
 
-    public Pizza createPizza(PizzaDTO pizzaDTO) {
+    public static Pizza createPizza(PizzaDTO pizzaDTO) {
         Crust crust = MenuItem.fromItemName(Crust.class, pizzaDTO.getItemName());
 
         // Process sauces
         ArrayList<Sauce> sauces = new ArrayList<>();
-        for (String sauceName : pizzaDTO.getSauces()) {
-            Sauce sauce = Sauce.valueOf(sauceName.toUpperCase());
+        for (String sauceDTO : pizzaDTO.getSauces()) {
+            System.out.println("Sauce: " + sauceDTO);
+            Sauce sauce = Sauce.valueOf(sauceDTO.toUpperCase());
             sauces.add(sauce);
         }
 
@@ -26,8 +27,8 @@ public class PizzaService {
             toppings.add(topping);
         }
 
-        Pizza pizza = new Pizza(crust, sauces, toppings);
-        pizza.setItemName(pizzaDTO.getItemName());
-        return pizza;
+        Pizza newPizza = new Pizza(crust, sauces, toppings);
+        newPizza.setItemName(pizzaDTO.getItemName());
+        return newPizza;
     }
 }

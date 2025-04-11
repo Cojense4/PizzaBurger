@@ -10,4 +10,9 @@ public class PriceableWrapper extends Priceable {
         super(item.getPrice(), item.getName());
         this.item = item;
     }
+
+    @Override
+    public Long getId() {
+        return 0L;
+    }
 }

@@ -1,34 +1,57 @@
 package com.prog02.pizza_burger.model.burger;
 
 import com.prog02.pizza_burger.model.common.AbstractMenuItem;
-import com.prog02.pizza_burger.model.common.Priceable;
-import com.prog02.pizza_burger.model.common.PriceableWrapper;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
+@Entity
+@Table(name = "burgers")
 public class Burger extends AbstractMenuItem {
-    private String itemName;
-    private Bun bun;
-    private ArrayList<Patty> patties;
-    private ArrayList<Cheese> cheeses;
-    private ArrayList<Garnish> garnishes;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    // Constructor taking the enums.
-    public Burger(Bun bun, ArrayList<Patty> patties, ArrayList<Cheese> cheeses, ArrayList<Garnish> garnish) {
-        this.bun = bun;
-        this.patties = patties;
-        this.cheeses = cheeses;
-        this.garnishes = garnish;
-        this.price = getPrice();
-    }
-    // No-argument constructor for JSON deserialization
+    @Column(name = "item_name")
+    private String itemName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "bun")
+    private Bun bun;
+
+    @ElementCollection(targetClass = Patty.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "burger_patties", joinColumns = @JoinColumn(name = "burger_id"))
+    @Column(name = "patty")
+    private List<Patty> patties;
+
+    @ElementCollection(targetClass = Cheese.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "burger_cheeses", joinColumns = @JoinColumn(name = "burger_id"))
+    @Column(name = "cheese")
+    private List<Cheese> cheeses;
+
+    @ElementCollection(targetClass = Garnish.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "burger_garnishes", joinColumns = @JoinColumn(name = "burger_id"))
+    @Column(name = "garnish")
+    private List<Garnish> garnishes;
+
+    // Default constructor
     public Burger() {
         this.bun = null;
         this.patties = new ArrayList<>();
         this.cheeses = new ArrayList<>();
         this.garnishes = new ArrayList<>();
         this.price = 0.0;
+    }
+    public Burger(Bun bun, List<Patty> patties, List<Cheese> cheeses, List<Garnish> garnish) {
+        this.bun = bun;
+        this.patties = patties;
+        this.cheeses = cheeses;
+        this.garnishes = garnish;
+        this.price = getPrice();
     }
 
     /**
@@ -62,9 +85,10 @@ public class Burger extends AbstractMenuItem {
         return sb.toString();
     }
 
-    /* Getters and Setters
-    For use to modify the burger (through BurgerTemplate)
-     */
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
     @Override
     public double getPrice() {
         double totalPrice = 0.0;
@@ -80,54 +104,32 @@ public class Burger extends AbstractMenuItem {
         }
         return totalPrice;
     }
-    public String getName() {return itemName;}
+    public String getItemName() {return itemName;}
     public Bun getBun() { return bun; }
-    public ArrayList<Patty> getPatties() { return patties; }
-    public ArrayList<Cheese> getCheeses() { return cheeses; }
-    public ArrayList<Garnish> getGarnishes() { return garnishes; }
+    public List<Patty> getPatties() { return patties; }
+    public List<Cheese> getCheeses() { return cheeses; }
+    public List<Garnish> getGarnishes() { return garnishes; }
 
     public void setItemName(String newItemName) {
         this.itemName = newItemName;
     }
     public void setBun(Bun bun) { this.bun = bun; }
-    public void setPatties(ArrayList<Patty> patties) { this.patties = patties; }
-    public void setCheeses(ArrayList<Cheese> cheeses) { this.cheeses = cheeses; }
-    public void setGarnishes(ArrayList<Garnish> garnishes) { this.garnishes = garnishes; }
-    /**
-     * Returns a sorted ArrayList of all Burger components (crust, sauce, and toppings) based on their price.
-     * Components are sorted in ascending order (lowest price first).
-     */
-    public ArrayList<Priceable> getSortedComponents() {
-        ArrayList<Priceable> components = new ArrayList<>();
-        if (bun != null) {
-            components.add(new PriceableWrapper(bun));
+    public void setPatties(List<Patty> patties) {
+        if (patties != null && patties.size() > 4) {
+            throw new IllegalArgumentException("Cannot have more than 4 patties");
         }
-        if (patties != null) {
-            for (Patty patty : patties) {
-                components.add(new PriceableWrapper(patty));
-            }
-        }
-        if (cheeses != null) {
-            for (Cheese cheese : cheeses) {
-                components.add(new PriceableWrapper(cheese));
-            }
-        }
-        if (garnishes != null) {
-            for (Garnish garnish : garnishes) {
-                components.add(new PriceableWrapper(garnish));
-            }
-        }
-        components.sort((a, b) -> Double.compare(a.getPrice(), b.getPrice()));
-        return components;
+        this.patties = patties;
     }
-
-    public boolean isEqual(Burger burg2) {
-        boolean isTrue = true;
-        isTrue &= Objects.equals(bun.display(), burg2.bun.display());
-        isTrue &= Objects.equals(patties, burg2.patties);
-        isTrue &= Objects.equals(cheeses, burg2.cheeses);
-        isTrue &= Objects.equals(garnishes, burg2.garnishes);
-        return isTrue;
+    public void setCheeses(List<Cheese> cheeses) {
+        if (cheeses != null && cheeses.size() > 4) {
+            throw new IllegalArgumentException("Cannot have more than 4 cheeses");
+        }
+        this.cheeses = cheeses;
     }
-
+    public void setGarnishes(List<Garnish> garnishes) {
+        if (garnishes != null && garnishes.size() > 8) {
+            throw new IllegalArgumentException("Cannot have more than 8 garnishes");
+        }
+        this.garnishes = garnishes;
+    }
 }

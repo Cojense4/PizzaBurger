@@ -25,6 +25,11 @@ public enum Bun implements MenuItem {
     }
 
     @Override
+    public Long getId() {
+        return 0L;
+    }
+
+    @Override
     public double getPrice() {
         return price;
     }

@@ -28,6 +28,12 @@ public enum Garnish implements MenuItem {
     public String display() {
         return (isCooked ? "(Veggie) " : "") + this.itemName;
     }
+
+    @Override
+    public Long getId() {
+        return 0L;
+    }
+
     @Override
     public double getPrice() {
         return price;

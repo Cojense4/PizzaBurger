@@ -6,3 +6,5 @@
 logs/
 target/
 .DS_Store
+/src/main/resources/.env
+pizza_burger.iml
