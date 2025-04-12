@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=pizzaburger
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=root
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  app:
+    build: .
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/pizzaburger
+    depends_on:
+      - db

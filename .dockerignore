@@ -1,0 +1,48 @@
+# Ignore version control directories
+.git/
+.hg/
+.svn/
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignore build and output directories
+target/
+*.class
+.gradle/
+
+# Ignore test files
+test/
+
+# Ignore temporary and debug files
+tmp/
+temp/
+*.tmp
+*.log
+
+# Ignore environment and secret files
+.env*
+*.pem
+*.key
+*.crt
+
+# Ignore documentation files
+docs/
+*.md
+README*
+
+# Ignore Docker-related files
+Dockerfile*
+docker-compose*
+
+# Ignore other unnecessary files
+*.iml
+*.xml
+*.properties
+
+# Ensure the .dockerignore file itself is not ignored
+!.dockerignore
+!pom.xml
