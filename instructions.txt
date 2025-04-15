@@ -1,9 +1,0 @@
-1. Do one of the following:
-    A) Clone your Programming Assignment 2 submission - it should have been set up for Maven.
-    B) Clone the starter code for Programming Assignment 2 (or make a copy of your Exercise 7) and put into a Maven folder structure.
-2. Create a folder structure: src/test/java.
-3. Create a PizzaTest class and place it under src/test/java/..., under the folder corresponding to Pizza.java.
-4. Write PizzaTest to check if the sorting method actually sorted
-    the Pizza.PizzaComponent MenuItems. (You'll need to check the
-    property that each menu item's price is less than or equal to
-    the one next to it.)
