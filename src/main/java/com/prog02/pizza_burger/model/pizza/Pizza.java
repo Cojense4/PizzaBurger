@@ -17,7 +17,6 @@ public class Pizza extends AbstractMenuItem {
         this.crust = crust;
         this.sauces = sauces;
         this.toppings = toppings;
-        this.price = getPrice();
     }
 
     /**
@@ -35,31 +34,43 @@ public class Pizza extends AbstractMenuItem {
             }
         }
         // toppings
+        StringBuilder tb = new StringBuilder();
         if (toppings != null && !toppings.isEmpty()) {
-            sb.append("--- Toppings ---\n");
+            tb.append("--- Toppings ---\n");
             for (Topping topping : toppings) {
-                sb.append(topping.display()).append("\n");
+                try {
+                    tb.append(topping.display()).append("\n");
+                } catch (Exception ignored) {
+                    return sb.toString();
+                }
             }
+            sb.append(tb);
         }
         return sb.toString();
     }
 
     @Override
-    public double getPrice() {
+    public double getPrice() throws NullPointerException {
         double totalPrice = 0.0;
         totalPrice += crust.getPrice();
         for (Sauce sauce : sauces) {
             totalPrice += sauce.getPrice();
         }
         for (Topping topping : toppings) {
+            if (topping == null) {
+                throw new NullPointerException("Topping is null");
+            }
             totalPrice += topping.getPrice();
         }
+
         return totalPrice;
     }
 
     public Crust getCrust() { return crust; }
     public ArrayList<Sauce> getSauces() { return sauces; }
-    public ArrayList<Topping> getToppings() { return toppings; }
+    public ArrayList<Topping> getToppings() {
+        return toppings;
+    }
 
     public void setItemName(String itemName) { this.itemName = itemName; }
     public void setCrust(Crust newCrust) { this.crust = newCrust; }

@@ -7,11 +7,14 @@ This assignment builds on Programming Assignment 2 by adding JUnit test cases to
 Using the same repository as Programming Assignment 2, create a new branch of the repository to work in (prog03-testing).
 Add the following test cases:
 
-1. check that the total price of a pizza is increased by the right amount when a topping is added.
-2. check that the total price of a pizza matches the sum of its crust, sauce and toppings.
-3. check that the total price of the order is increased by the right amount after assembling a pizza
-4. check that the total price of the order is increased by the right amount after assembling a burger
-5. check that the total price of the order is increased by the right amount after assembling two pizzas 
+1. check that the total price of a [pizza](src/main/java/com/prog02/pizza_burger/model/pizza/Pizza.java)/[burger](src/main/java/com/prog02/pizza_burger/model/burger/Burger.java) is increased by the right amount when a [topping](src/main/java/com/prog02/pizza_burger/model/pizza/Topping.java)/[garnish](src/main/java/com/prog02/pizza_burger/model/burger/Garnish.java) is added.
+2. check that the total price of a pizza/burgr matches the sum of its components.
+3. check that the total price of the [cart](src/main/java/com/prog02/pizza_burger/model/user/CartManager.java) is increased by the right amount after assembling a pizza
+4. check that the total price of the cart is increased by the right amount after assembling a burger
+5. check that the total price of the cart is increased by the right amount after assembling two pizzas/two burgers.
+
+Check [Burger components](src/main/java/com/prog02/pizza_burger/model/burger) for help on pricing
+Check [Pizza components](src/main/java/com/prog02/pizza_burger/model/pizza) for help on pricing
 *Test cases can be written as unit tests.*
 
 Use proper formatting, identifier naming, and comments. We will follow the [Google Java style guide](https://google.github.io/styleguide/javaguide.html) as much as possible.
